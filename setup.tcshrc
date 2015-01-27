@@ -5,14 +5,14 @@ else if ($HOST =~ "*farm*" || $HOST =~ "qcd*") then
   setenv FTOF_DATADIR "$VOLHOME/data/FTOF"
 endif
 
-alias ftof_ana 'cd ${WORKSPACE}/at-FTOF/ana6bar'
-alias ftof_ana_dc 'cd ${WORKSPACE}/at-FTOF/ana6bar/data_converter_09_02_11'
-alias ftof_ana_ana 'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12'
+alias ftof_ana      'cd ${WORKSPACE}/at-FTOF/ana6bar'
+alias ftof_ana_dc   'cd ${WORKSPACE}/at-FTOF/ana6bar/data_converter_09_02_11'
+alias ftof_ana_ana  'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12'
 alias ftof_ana_gary 'cd ${WORKSPACE}/at-FTOF/ana6bar/6barmethod-2012-04-11'
 
 alias ftof_data 'cd $FTOF_DATADIR'
 
-alias ftof_pub 'cd ${WORKSPACE}/at-docs/FTOF/NIM_TOF12'
+alias ftof_pub    'cd ${WORKSPACE}/at-FTOF/docs/FTOF/NIM_TOF12'
 alias ftof_pub-at 'cd ${WORKSPACE}/at-FTOF/docs/NIM_TOF12-at-contrib'
 
 
@@ -29,6 +29,6 @@ alias ftof_pub-at 'cd ${WORKSPACE}/at-FTOF/docs/NIM_TOF12-at-contrib'
 alias ftof_ana_ana-MLE 'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12_MLE'
 alias ftof_ana_ana-CSQ 'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12_CSQ'
 
-alias ftof_data_cvrtd_stat-err-ana  'cd $FTOF_DATADIR/converted/stat_err_ana' 
+alias ftof_data_cvrtd_stat-err-ana       'cd $FTOF_DATADIR/converted/stat_err_ana' 
 alias ftof_data_anlyzd_stat-err-ana-CSQ  'cd $FTOF_DATADIR/analyzed/stat_err_ana/CSQ'
 alias ftof_data_anlyzd_stat-err-ana-MLE  'cd $FTOF_DATADIR/analyzed/stat_err_ana/MLE'
