@@ -1,0 +1,15 @@
+	AAAAAAAAAW MAN …….. you broke it….. don’t panic
+
+*Program freezes, No data being taken, General mayhem*
+
+The easiest way to get back  on track is to first try restarting the crates power. The power for the crate is a red toggle switch. Its location is just below the set of red cards and is on the panel labeled W-IE-NE-R. To reset the power hold the toggle switch in the off position for a minimum of 7 seconds then turn it back on. This will ensure all the power leaves the system. This step can be done while the program is running if it freezes up to allow you to hit the STOP program button.  If you have hit the graph data button please give it a minute or  two to process the data before trying this.
+
+*That didn’t help*
+
+Ok well just restart everything. Close out labVIEW all the way and restart the program. Turn off all the power to the crate as in the last step and restart it. 
+
+*Buttons are disabled and cant use them*
+
+This means you stopped the program without the use of the program stop button during the data taking process. Close out the program and reopen. If that didn’t work while the program is not running  you must  right click the effected button and in the drop down menu select  Advanced > Enabled state > Enabled
+
+Still stuck  email me  xciencex@yahoo.com  

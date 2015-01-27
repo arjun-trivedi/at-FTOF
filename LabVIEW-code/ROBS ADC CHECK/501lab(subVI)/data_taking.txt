@@ -1,0 +1,22 @@
+	ALWAYS USE THE PROGRAM STOP BUTTON TO STOP THE PROGRAM.
+
+
+	First you will want to make sure all of your electronics are turned on and that your are supplying power to your PMT
+
+	Data taking is as simple as first setting your desired run time in seconds then pressing the take data button. Once the desired time has been reached you may then hit the graph data button. (It may take several seconds for the data to process and appear on the graph so please be patient) To alter the bin range of the graphs change the maximum bin value and hit the graph all button again. 
+	
+	You may at any time hit the Stop data run button to end your data run early. 
+
+***************************************************************************************
+If for any reason you see that after hitting the take data run button you see the scalar count stop please hit the STOP data run button then the Program stop button. Be patient for the program to stop.  
+***************************************************************************************
+
+TIPS: 
+You can right click on the graphs themselves during  program operation to access additional graph functions. 
+
+You can click on manila box next to the "histogram count" label to access different formats to view your histograms.
+
+The small box at the bottom of your histogram can be used to change your viewing size of your histograms without having to re-plot them. 
+
+
+	ALWAYS USE THE PROGRAM STOP BUTTON TO STOP THE PROGRAM.

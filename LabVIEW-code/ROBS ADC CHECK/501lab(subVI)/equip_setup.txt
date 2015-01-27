@@ -1,0 +1,37 @@
+You will need 
+
+1 PMT
+1 Source		
+1 PMT power supply                     						
+2 FAN IN/OUT modules
+1 Discriminator module
+1 Coincidence module  
+1 Gate generator module
+1 ECL-NIM-ECL module
+2 Scalar modules 
+And the C.A.E.N V560E Card 
+
+The wire connection path is as follows.
+
+Initial setup
+
+PMT >  Linear FAN IN/OUT  >  Discriminator  > Coincidence 
+
+Crate setup
+
+VM-USB O1 > Logic FAN IN/OUT 4 (to invert) >  Discriminator > Event Gate generator  1 (use delay as out) > Interrupt Gate generator 2 (use delay as out) > Discriminator > VM-USB I1
+
+Scalar count setup
+
+Event Gate generator 1 out > Logic FAN IN/OUT 1 > NIM-ECL > VME Scalar (event number)
++ Logic FAN IN/OUT 1 > Coincidence > NIM-ECL > VME Scalar (event content)
+
+Diagnostic cross-check via NIM Scalars
+
+Coincidence > NIM Scalar 
+And
+Logical FAN IN/OUT 1 > NIM Scalar 
+
+*source setup*
+
+Take source and apply electrical tape to side of source with no text. Tape source to front of PMT with text facing PMT 
