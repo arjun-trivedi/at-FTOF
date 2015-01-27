@@ -1,0 +1,48 @@
+\title{Note on error analysis of the extracted time resolution using the automated 6-bar analysis program}
+\date{January 18, 2015}
+
+\documentclass[12pt]{article}
+
+\usepackage{hyperref}
+\usepackage{cite}
+
+\usepackage{graphicx}
+%\usepackage{epsfig}
+\usepackage{epstopdf}
+
+\usepackage{mathtools}
+\newcommand{\defeq}{\vcentcolon=}
+
+\usepackage{float}
+\restylefloat{table}
+
+%! To create a place-holder figure
+\newcommand{\dummyfig}[1]{
+  \centering
+  \fbox{
+    \begin{minipage}[c][0.33\textheight][c]{0.5\textwidth}
+      \centering{#1}
+    \end{minipage}
+  }
+}
+
+\begin{document}
+\maketitle
+
+% \begin{abstract}
+% This is the paper's abstract \ldots
+% \end{abstract}
+
+\section{Introduction}
+
+The time resolution of the FTOF system shown in Figure 5(b) was extracted using the automated analysis program developed at USC (Section 12.2).  As per the optimal binning requirements, the analysis program needs to be able to analyze up to 135 data points (for the longest counters). The stability of the program depends on the stability of numerous statistical fits performed at each point, which in turn depends on the statistics at each point. Even after four days of data taking per 6-bar set, sometimes the statistics are not enough to run a \"fully constrained\" statistical fit and some of the restrictions need to be \"eased off\".  For example, the standard $\chi^{2}$ fit will \"often fail\" and ROOT fit option \"WW\" needs to be used to guarantee stability of the program over all 135 data points. This leads to certain systematic effects in the extraction of the time resolution. The point of this note is to demonstrate that effects of such systematics on the extracted time resolution is minimal and any variations finally seen, for example in Figure 5(b) is due to the variation in the quality of the scintillar bars.
+
+
+
+% \phantomsection
+% \addcontentsline{toc}{chapter}{Bibliography}
+\label{bib}
+\bibliographystyle{abbrv}
+\bibliography{at_contrib}
+
+\end{document}

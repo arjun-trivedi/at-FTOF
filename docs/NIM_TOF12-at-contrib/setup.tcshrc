@@ -1,0 +1,34 @@
+##- set up env variables 
+if ($HOST == "gothe14" || $HOST == "trivedia-laptop") then
+  setenv FTOF_DATADIR "/data/trivedia/FTOF"
+else if ($HOST =~ "*farm*" || $HOST =~ "qcd*") then
+  setenv FTOF_DATADIR "$VOLHOME/data/FTOF"
+endif
+
+alias ftof_ana 'cd ${WORKSPACE}/at-FTOF/ana6bar'
+alias ftof_ana_dc 'cd ${WORKSPACE}/at-FTOF/ana6bar/data_converter_09_02_11'
+alias ftof_ana_ana 'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12'
+alias ftof_ana_gary 'cd ${WORKSPACE}/at-FTOF/ana6bar/6barmethod-2012-04-11'
+
+alias ftof_data 'cd $FTOF_DATADIR'
+
+alias ftof_pub 'cd ${WORKSPACE}/at-docs/FTOF/NIM_TOF12'
+alias ftof_pub-at 'cd ${WORKSPACE}/at-docs/FTOF/NIMpub'
+
+
+##- [10-27-14] Following for time-resolution error analysis study
+##- The following directories are directly copied from nogui_analysis_06_26_12, with the following code modifications:
+##- + MLE: 
+##-   + Fit option changed from "WWQ0" => "WWQ" so that Fit is drawn on histogram
+##-   + Removed "gtl->Delete()" so that Fit function is drawn on hist.     
+##-   + macro.cxx: Commented out SetOptStat(0) and SetOptFit(0)
+##- + CSQ
+##-    + Fit options = "Q" i.e. default chi-square method
+##-    + Removed "gtl->Delete()" so that Fit function is drawn on hist.
+##-    + macro.cxx: Commented out SetOptStat(0) and SetOptFit(0)
+alias ftof_ana_ana-MLE 'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12_MLE'
+alias ftof_ana_ana-CSQ 'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12_CSQ'
+
+alias ftof_data_cvrtd_stat-err-ana  'cd $FTOF_DATADIR/converted/stat_err_ana' 
+alias ftof_data_anlyzd_stat-err-ana-CSQ  'cd $FTOF_DATADIR/analyzed/stat_err_ana/CSQ'
+alias ftof_data_anlyzd_stat-err-ana-MLE  'cd $FTOF_DATADIR/analyzed/stat_err_ana/MLE'

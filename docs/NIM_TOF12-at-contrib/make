@@ -1,0 +1,3 @@
+latex at_contrib.tex
+dvips at_contrib.dvi
+ps2pdf at_contrib.ps

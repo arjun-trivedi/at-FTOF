@@ -1,0 +1,10 @@
+#!/bin/bash
+
+make clean
+rootcint -f Resolution2barDict.cxx -c -I`root-config --incdir` Resolution2bar.h
+rootcint -f ResEventDict.cxx -c -I`root-config --incdir` ResEvent.h
+rootcint -f fit2_varDict.cxx -c -I`root-config --incdir` fit2_var.h
+rootcint -f test_clDict.cxx -c -I`root-config --incdir` test_cl.h
+#from Makefile
+
+make

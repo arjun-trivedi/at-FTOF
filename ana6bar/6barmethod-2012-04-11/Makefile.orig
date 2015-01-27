@@ -1,0 +1,8 @@
+6barmethod: main.o sigma6barfunctions.o
+	g++ `root-config --libs` main.o sigma6barfunctions.o -o 6barmethod
+main.o : main.cc
+	g++ -c `root-config --cflags` main.cc -o main.o
+sigma6barfunctions.o : sigma6barfunctions.cc
+	g++ -c `root-config --cflags` sigma6barfunctions.cc -o sigma6barfunctions.o
+clean:
+	rm -f main.o sigma6barfunctions.o 6barmethod

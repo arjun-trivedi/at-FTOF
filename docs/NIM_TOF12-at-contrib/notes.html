@@ -1,0 +1,144 @@
+<html><meta charset="UTF-8"><style>html { 
+    font-size: 100%; 
+    overflow-y: scroll; 
+    -webkit-text-size-adjust: 100%; 
+    -ms-text-size-adjust: 100%; 
+}
+
+body{
+    font-family: helvetica, arial, freesans, clean, sans-serif;
+    color: #333;
+    background-color: #fff;
+    border-color: #999999;
+    border-width: 2px;
+    line-height: 1.5;
+    margin: 2em 3em;
+    text-align:left;
+    padding: 0 100px 0 100px;
+}
+
+pre{
+    background-color: #eee;
+    padding: 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    overflow: auto;
+}
+code{
+    background-color: #eee;
+    padding: 1px 3px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px; 
+}
+pre code {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+li p{
+    margin: 0.3em;
+}
+ul > li{
+    list-style-type: disc;
+}
+a:link, a:visited{
+    color: #33e;
+    text-decoration: none;
+}
+a:hover{
+    color: #00f;
+    text-shadow:1px 1px 2px #ccf;
+    text-decoration:underline;
+}
+h1{
+    color: #999;
+    font-weight: 400;
+    font-size: 36px;
+}
+h2{
+    border-bottom: 1px dotted #aaa;
+    margin-bottom: 1em;
+    color: #333;
+    font-size: 30px;
+}
+h3{
+    color: #666;
+    font-size: 24px;
+}
+h4 {
+    font-size: 21px;
+}
+h5 {
+    font-size: 18px;
+}
+.shadow{
+    -webkit-box-shadow:0 5px 15px #000;
+    -moz-box-shadow:0 5px 15px #000;
+    box-shadow:0 5px 15px #000;     
+}
+</style><body><h3>Measurements</h3>
+<p>Taken from <a href="https://docs.google.com/document/d/1lmUzZyPiJII3UrA2D973143--wMJR4UFZqvusMk9174/edit#heading=h.vk6d5uhn2rz8">FTOF12 Publication outline</a>'s section III: Prototyping and design -- equipment selection, calibration, and method choices</p>
+<h4>C. Electronics</h4>
+<ol>
+<li>TDC testing</li>
+<li>QDC testing<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:CAEN_V792N_QDC">https://clasweb.jlab.org/wiki/index.php/TOF12:CAEN_V792N_QDC</a></li>
+</ul>
+</li>
+<li>Discriminator testing<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:Discriminator_Testing">https://clasweb.jlab.org/wiki/index.php/TOF12:Discriminator_Testing</a></li>
+</ul>
+</li>
+</ol>
+<h4>D. Time-Walk Corrections</h4>
+<ul>
+<li>The first two methods were ruled out: Look at publication</li>
+<li>Look into work aready done to justify these methods: Lewis thesis, Haiyun's work etc.</li>
+</ul>
+<h4>E. PMTs</h4>
+<ol>
+<li>Different PMTs time resolutions<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:Time_Resolution_with_Electron_Tubes_PMTs">https://clasweb.jlab.org/wiki/index.php/TOF12:Time_Resolution_with_Electron_Tubes_PMTs</a></li>
+</ul>
+</li>
+<li>… threshold dependence<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:Effect_of_Threshold_Levels_on_Time_Resolution_for_Hamamatsu_PMTs">https://clasweb.jlab.org/wiki/index.php/TOF12:Effect_of_Threshold_Levels_on_Time_Resolution_for_Hamamatsu_PMTs</a></li>
+</ul>
+</li>
+</ol>
+<h4>F. Magnetic Shielding</h4>
+<ol>
+<li>time resolution<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:PMT_and_Mu-metal_in_Magnetic_Fields#Three_Bar_Time_Resolution_Measurements_in_the_Presence_of_Magnetic_Field">https://clasweb.jlab.org/wiki/index.php/TOF12:PMT_and_Mu-metal_in_Magnetic_Fields#Three_Bar_Time_Resolution_Measurements_in_the_Presence_of_Magnetic_Field</a></li>
+</ul>
+</li>
+</ol>
+<h4>G. Geometry and lightguides</h4>
+<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:Light_Guides">https://clasweb.jlab.org/wiki/index.php/TOF12:Light_Guides</a></li>
+</ul>
+<h4>H. Scintillators</h4>
+<ol>
+<li>Scintillator comparing (BC408, long bars; BC404 short bars; EJ equivalents)<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:Scintillator_Comparisons">https://clasweb.jlab.org/wiki/index.php/TOF12:Scintillator_Comparisons</a></li>
+</ul>
+</li>
+<li>Attenuation length measuring and results(Attenuation length results of two point method for all the scintillators and 
+the 2 dimensional histogram(ADC_VS_TDCDiff) comparison)<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:Scintillator_Attenuation_Measurements">https://clasweb.jlab.org/wiki/index.php/TOF12:Scintillator_Attenuation_Measurements</a></li>
+</ul>
+</li>
+</ol>
+<h4>I. Reflective wrap (diffuse and reflective)</h4>
+<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/TOF12:VM2000_vs._Aluminized_Mylar">https://clasweb.jlab.org/wiki/index.php/TOF12:VM2000_vs._Aluminized_Mylar</a></li>
+</ul>
+<h4>J. Cables</h4>
+<ol>
+<li>Individual cable attenuation length testing (RG58)<ul>
+<li><a href="https://clasweb.jlab.org/wiki/index.php/Test_Cable_Attenuation_Effects:">https://clasweb.jlab.org/wiki/index.php/Test_Cable_Attenuation_Effects:</a></li>
+</ul>
+</li>
+<li>50ft,75ft,100ft cable length time resolution results</li>
+</ol></body></html>
