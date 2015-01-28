@@ -1,0 +1,21 @@
+[01-28-15]
+The folders backed up are as follows (Note that 1. is backed up on external HDD only!):
+
+1. vme_data: Original location E:\vme_data
+This is where all the data from 3-bar,6-bar and other runs were stored
+
+2. 501 LAB and ROBS ADC CHECK:Original location C:\Documents and Settings\gothe\Desktop
+These contain the executables that are used to start DAQ programs for the 501 Lab and 6-bar runs.
+
+3. vme: Original location C:\Documents and Settings\gothe\My Documents\vme
+Some of the executables in 2. are linked to their actual files in this folder (Note that the links may not have been preserved and one will have to identify the correct executables by name)
+
+Since I am backing up these folders online (github), I removed some not-important folders from vme:
++Directories deleted
+	+ data
+	+ rob.test.daq_000
++ Files deleted
+	+ woot.dat
+
+	
+

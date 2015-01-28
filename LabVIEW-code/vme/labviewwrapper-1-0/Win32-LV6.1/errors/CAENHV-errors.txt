@@ -1,0 +1,93 @@
+<?XML Version="1.0">
+<nidocument>
+<nicomment>
+Error codes for the CAENHVWrapper library.
+</nicomment>
+<nierror code="5000">
+Target device error.
+</nierror>
+<nierror code="5001">
+Operating system error.
+</nierror>
+<nierror code="5002">
+Write error in communication channel.
+</nierror>
+<nierror code="5003">
+Read error in communication channel.
+</nierror>
+<nierror code="5004">
+Time out in server communication.
+</nierror>
+<nierror code="5005">
+Command Front End application is down.
+</nierror>
+<nierror code="5006">
+Undefined error.
+</nierror>
+<nierror code="5007">
+Slot not present.
+</nierror>
+<nierror code="5008">
+Undefined error.
+</nierror>
+<nierror code="5009">
+Undefined error.
+</nierror>
+<nierror code="5010">
+Value out of range.
+</nierror>
+<nierror code="5011">
+Execute command not yet implemented.
+</nierror>
+<nierror code="5012">
+Get property not yet implemented.
+</nierror>
+<nierror code="5013">
+Set property not yet implemented.
+</nierror>
+<nierror code="5014">
+Property not found.
+</nierror>
+<nierror code="5015">
+Execute command not found.
+</nierror>
+<nierror code="5016">
+Not a system property.
+</nierror>
+<nierror code="5017">
+Not a readable property.
+</nierror>
+<nierror code="5018">
+No a writable property.
+</nierror>
+<nierror code="5019">
+Undefined error.
+</nierror>
+<nierror code="5020">
+Undefined error.
+</nierror>
+<nierror code="5021">
+Parameter's property not found.
+</nierror>
+<nierror code="5022">
+Parameter not found.
+</nierror>
+<nierror code="5097">
+The connection is already established.
+</nierror>
+<nierror code="5098">
+Connection not yet established.
+</nierror>
+<nierror code="5099">
+Operating system error.
+</nierror>
+<nierror code="9100">
+Login failed.
+</nierror>
+<nierror code="9101">
+Logout failed.
+</nierror>
+<nierror code="9102">
+Communication link not supported.
+</nierror>
+</nidocument>

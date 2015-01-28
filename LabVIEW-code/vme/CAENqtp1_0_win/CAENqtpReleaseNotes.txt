@@ -1,0 +1,50 @@
+  -----------------------------------------------------------------------------
+
+                   --- CAEN SpA - Computing Systems Division --- 
+
+  -----------------------------------------------------------------------------
+
+  CAEN Qtp Release Notes
+
+  -----------------------------------------------------------------------------
+
+  Rel. 1.0  -    June  2008
+
+  -----------------------------------------------------------------------------
+ 
+
+  Description
+  -----------
+
+  This document is updated for every official release of the CAEN qtp tool 
+  and it contains various information specific to this software which can not
+  be found in the User's Manual, available together with the software or on 
+  the CAEN web site: www.caen.it.
+
+
+ System Requirements
+ -------------------
+ 
+  - CAENVME Library
+  - Windows 2000/XP/Vista
+  - LabView 8.2 professional (for LabView VIs and demos)
+
+
+  What's New in Rel. 1.0
+  --------------------------
+
+   New Features and Important Notes
+   --------------------------------
+    - SDK rev. 1.1:
+        -- Added cvt_V792_peek_channel_data API
+	    -- Created standalone project branching from CAENVMETool 1.5
+    - LabView :
+        -- Added VIs and CAENqtpDemo
+
+  How to get support
+  ------------------
+
+  Our Software Support Group is available for questions, support and any other 
+  software related issue concerning CAEN products; for software support
+  visit the page www.caen.it/computing/support.php.
+

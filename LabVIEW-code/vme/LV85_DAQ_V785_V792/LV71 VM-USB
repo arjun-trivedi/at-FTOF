@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+ <head>
+  <title>Index of /~belhormp/vme/XX-USB_CD3_3/LabView/LV71 VM-USB</title>
+ </head>
+ <body>
+<h1>Index of /~belhormp/vme/XX-USB_CD3_3/LabView/LV71 VM-USB</h1>
+<pre><img src="/icons/blank.gif" alt="Icon "> <a href="?C=N;O=D">Name</a>                                       <a href="?C=M;O=A">Last modified</a>      <a href="?C=S;O=A">Size</a>  <a href="?C=D;O=A">Description</a><hr><img src="/icons/back.gif" alt="[DIR]"> <a href="/~belhormp/vme/XX-USB_CD3_3/LabView/">Parent Directory</a>                                                -   
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="VM-USB_Controller.vi">VM-USB_Controller.vi</a>                       28-Mar-2007 13:06  241K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_DAQ_start.vi">XX-USB_DAQ_start.vi</a>                        21-Dec-2005 14:31   13K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_DAQ_stop.vi">XX-USB_DAQ_stop.vi</a>                         19-May-2007 16:00   15K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_Read_FIFO.vi">XX-USB_Read_FIFO.vi</a>                        19-Dec-2005 00:19   21K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_Stack_write.vi">XX-USB_Stack_write.vi</a>                      19-Dec-2005 00:19   16K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_DGG.vi">XX-USB_VME_DGG.vi</a>                          12-Mar-2007 15:25   27K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_LED.vi">XX-USB_VME_LED.vi</a>                          12-Mar-2007 15:25   21K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_Output.vi">XX-USB_VME_Output.vi</a>                       12-Mar-2007 15:25   21K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_Register_read.vi">XX-USB_VME_Register_read.vi</a>                12-Mar-2007 15:23   15K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_Register_write.vi">XX-USB_VME_Register_write.vi</a>               19-Dec-2005 00:19   14K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_read_16.vi">XX-USB_VME_read_16.vi</a>                      12-Mar-2007 15:25   17K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_read_32.vi">XX-USB_VME_read_32.vi</a>                      12-Mar-2007 15:25   17K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_read_BLT.vi">XX-USB_VME_read_BLT.vi</a>                     12-Mar-2007 15:25   25K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_stack%20write%20-%20FIFO%20read_demo.vi">XX-USB_VME_stack write - FIFO read_demo.vi</a> 21-Dec-2005 14:31   79K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_write_16.vi">XX-USB_VME_write_16.vi</a>                     12-Mar-2007 15:25   33K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_VME_write_32.vi">XX-USB_VME_write_32.vi</a>                     12-Mar-2007 15:25   32K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_close.vi">XX-USB_close.vi</a>                            12-Mar-2007 15:25   10K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="XX-USB_open.vi">XX-USB_open.vi</a>                             12-Mar-2007 15:25  9.8K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="display32.vi">display32.vi</a>                               12-Mar-2007 15:25   10K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="display6.vi">display6.vi</a>                                12-Mar-2007 15:25   13K  
+<img src="/icons/unknown.gif" alt="[   ]"> <a href="libxxusb.dll">libxxusb.dll</a>                               22-Mar-2007 11:23   48K  
+<hr></pre>
+<address>Apache/2.0.54 (Fedora) Server at www.physics.uc.edu Port 80</address>
+</body></html>
