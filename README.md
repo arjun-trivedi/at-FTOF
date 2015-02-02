@@ -10,7 +10,7 @@ In this repository I have consolidated all aspects of FTOF related work in a sin
 Branch information
 ==================
 
-+ master
++ master: This is the branch that was first created when I consolidated all FTOF work in at-FTOF, therefore, in this branch should simply be a copy of all the work that was located at different locations.
 	+ setup.tcshrc
 		+ Used to set up aliases, environment variables and anything else needed to work in this directory
 	+ ana6bar
