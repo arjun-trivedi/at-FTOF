@@ -27,3 +27,4 @@ Branch information
 	+ PMT-tests
 		+ Code and data from when I was testing PMTs
 
+	+ gary-ana-add-errbars [02-16-15]: Made this branch to perform analysis now that Gary implemented error bars for the extraction of time resolution.
