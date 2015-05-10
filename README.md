@@ -28,3 +28,4 @@ Branch information
 		+ Code and data from when I was testing PMTs
 
 	+ gary-ana-add-errbars [02-16-15]: Made this branch to perform analysis now that Gary implemented error bars for the extraction of time resolution.
+		+ Removed notebooks in ana-time-res-err that compared ROOT fits using comp_MLE_CSQ.py after it was replaced by the more comprehensive comp_ROOT_fits.py.
