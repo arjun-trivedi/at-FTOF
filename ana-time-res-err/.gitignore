@@ -1,3 +1,6 @@
 #from latexmk
 note-ftof-err-ana.fdb_latexmk
 note-ftof-err-ana.log
+
+#from python notebook
+.ipynb_checkpoints
