@@ -29,3 +29,5 @@ Branch information
 
 	+ gary-ana-add-errbars [02-16-15]: Made this branch to perform analysis now that Gary implemented error bars for the extraction of time resolution.
 		+ Removed notebooks in ana-time-res-err that compared ROOT fits using comp_MLE_CSQ.py after it was replaced by the more comprehensive comp_ROOT_fits.py.
+
+		+ Jul_15 [07-05-15]: Now that we are getting ready to finalize the FTOF publication and Gary's error analysis is more mature, I need to consolidate my own contribution to the write-up of the error analysis part of the publication. Additionally, with more experience in github, I have a better perspective on how to organize branches etc.
