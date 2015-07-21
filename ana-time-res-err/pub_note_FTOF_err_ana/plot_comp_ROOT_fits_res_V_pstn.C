@@ -38,6 +38,36 @@ void plot_comp_ROOT_fits_res_V_pstn(bool plot_N_V_pstn=true){
   h_resol_1_2_3_cont[CSQ]->Fit(f[CSQ],"","sames");
   c->Update();
 
+  //!Make plot of sgma_sgma/sgma
+  TH1F* htmp[NMTHD];
+  int nbins=h_resol_1_2_3_cont[CSQWW]->GetNbinsX();
+  float xmin=h_resol_1_2_3_cont[CSQWW]->GetXaxis()->GetXmin();
+  float xmax=h_resol_1_2_3_cont[CSQWW]->GetXaxis()->GetXmax();
+  htmp[CSQWW]=new TH1F("CSQ","CSQ",nbins,xmin,xmax);
+  htmp[CSQ]=new TH1F("CSQWW","CSQWW",nbins,xmin,xmax);
+  for (int ibin=0;ibin<nbins;ibin++){
+    float sgma_csqww=h_resol_1_2_3_cont[CSQWW]->GetBinContent(ibin+1);
+    float sgma_sgma_csqww=h_resol_1_2_3_cont[CSQWW]->GetBinError(ibin+1);
+    htmp[CSQWW]->SetBinContent(ibin+1,(sgma_sgma_csqww/sgma_csqww)*100);
+    htmp[CSQWW]->SetBinError(ibin+1,0);
+    htmp[CSQWW]->SetMinimum(0.);
+    htmp[CSQWW]->SetMaximum(15.);
+    float sgma_csq=h_resol_1_2_3_cont[CSQ]->GetBinContent(ibin+1);
+    float sgma_sgma_csq=h_resol_1_2_3_cont[CSQ]->GetBinError(ibin+1);
+    htmp[CSQ]->SetBinContent(ibin+1,(sgma_sgma_csq/sgma_csq)*100);
+    htmp[CSQ]->SetBinError(ibin+1,0);
+  }
+  htmp[CSQWW]->SetMarkerStyle(kFullCircle);
+  htmp[CSQWW]->SetMarkerColor(kRed);
+  htmp[CSQWW]->SetLineColor(kRed);
+  htmp[CSQ]->SetMarkerStyle(kFullCircle);
+  htmp[CSQ]->SetLineColor(kBlue);
+  htmp[CSQ]->SetMarkerColor(kBlue);
+  TCanvas* c1=new TCanvas();
+  htmp[CSQWW]->Draw("E1 P");
+  htmp[CSQ]->Draw("E1 P sames");
+  
+
   if (plot_N_V_pstn){
     //! N vs. P
     const int NPNT=69;
@@ -55,7 +85,8 @@ void plot_comp_ROOT_fits_res_V_pstn(bool plot_N_V_pstn=true){
       h->SetBinContent(ipnt+1,N[CSQ][ipnt]);
     }
     //! Make plot
-    TCanvas* c1=new TCanvas();
+    h->SetMinimum(0);
+    TCanvas* c2=new TCanvas();
     h->Draw();
   }
   
