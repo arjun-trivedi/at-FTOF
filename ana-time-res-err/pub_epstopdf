@@ -1,0 +1,25 @@
+#!/usr/bin/python
+import os
+import glob
+from subprocess import call
+
+#! Get all .eps files
+fl=glob.glob("*binw-1.00*eps")
+#print len(fl)
+#print fl
+
+for f in fl:
+	fpdf=f.replace("1.00","1")
+	fpdf=fpdf.replace(".eps",".pdf")
+	print(">epstopdf %s --outfile=%s"%(f,fpdf))	
+	os.system("epstopdf %s --outfile=%s"%(f,fpdf))
+#epstopdf fit-comp_MU-190_SG-1_fit-opt-L_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-1_fit-opt-WW_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-2_fit-opt-L_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-2_fit-opt-WW_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-3_fit-opt-L_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-3_fit-opt-WW_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-4_fit-opt-L_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-4_fit-opt-WW_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-5_fit-opt-L_binw-1.00.eps
+#epstopdf fit-comp_MU-190_SG-5_fit-opt-WW_binw-1.00.eps
