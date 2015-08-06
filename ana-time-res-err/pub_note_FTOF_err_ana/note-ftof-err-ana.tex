@@ -38,10 +38,10 @@
  
 \section{Introduction}
 
-Estimating the error of the extracted time resolution of the system requires a thorough analysis of the statistical and non-statistical uncertainties. Given the scale of the project and therefore, constraints on the time, it was not possible to perform such an analysis for each of the sets of counters. In this section we present a detailed analysis of the error estimate using a set of reference counters -- 6x210cm bars(half slow, half fast) and 1st article PMTs -- and describe the method we used to extrapolate the obtained result to counters of all lengths.
+Estimating the error of the extracted time resolution of the system requires a thorough analysis of the statistical and non-statistical uncertainties. Given the scale of the project and therefore, constraints on the time, it was not possible to perform such an analysis for each of the sets of counters. In this section we present a detailed analysis of the error estimate for a set of reference counters -- 6x210cm bars(half slow, half fast) and 1st article PMTs -- and describe the method we used to extrapolate the obtained result to counters of all lengths.
 
 \subsection{Time resolution measurement and its error along the length of a bar}
-For each bar length, even after 2 days of data taking, the statistics in the T histogram (\textit{refer to formula in doc.}) are low and therefore, the statistical methods that can be used to fit and obtain the standard deviation of these histograms, which is the time resolution, has to be studied, since each method, in the low statistic limit, has its own limitation in estimating the true standard deviation and its error. 
+For each bar length, even after 2 days of data taking, the statistics in the T histogram (\textit{refer to formula in doc.}) are low and therefore, the statistical methods that can be used to fit and obtain the standard deviation of these histograms, which is the time resolution, has to be studied since each method in the low statistic limit has its own limitation in estimating the true standard deviation and its error. 
 
 Figure 1. shows the statistics accumulated (N) for the shortest and longest counters versus points along the bar. Figures 2. and 3. show a comparison of the various fitting methods available in ROOT for extracting $\mu$ and $\sigma$ from simulated Gaussian histograms ($\mu_{T}$ and $\sigma_{T}$) for N values between 100 and 600, reflecting the low and high end of the statistics versus bar length (as can be seen in Figure 1.). The range of simulated $\sigma_{T}$, similarly, covers the low and high end of the typical standard deviation values expected from the FTOF12 system, corresponding to the shortest and longest bars, respectively (\textit{confirm this!}).
 
@@ -55,7 +55,7 @@ Figure 2. is a comparison of the Chi-square(CSQ) method with Maximum Likelihood(
 
 The $\mu_{T}$ extracted from both methods are in agreement within statistical uncertainties, however, it is not used in extracting the time resolution.
 
-While this study clearly establishes the superiority of the MLE method in the low N limit, it is not suited for the extraction of the time resolution for a large scale system. The measured data contains data points that are ``outliers'' to the T-distribution and to which the MLE method is highly sensitive, making it estimate a higher standard deviation (\textit{Fig 4. will demonstrate this once its updated with the MLE analysis}). The unpredictabe nature of the ``outliers'' and the large dynamic range over which the T-distributions can appear, which is additionally affected by the test setup, make it impossible, at least a priori, to specify an appropriate fitting range in an automated analysis program.
+While this study clearly establishes the superiority of the MLE method in the low N limit, it is not suited for the extraction of the time resolution for a large scale system. The measured data contains data points that are ``outliers'' to the T-distribution and to which the MLE method is highly sensitive, making it estimate a higher standard deviation (see Fig. 4). The unpredictabe nature of the ``outliers'' and the large range of values over which the T-distributions can appear -- depending on the particular setup of the measurement -- make it impossible, at least a priori, to specify an appropriate fitting range in an automated analysis program so that that ``outliers'' can be avoided. 
 
 The other remaining option is to use a modified version of the CSQ fit in ROOT (CSQ-WW) where the error bars in the histogram bins are ignored(\textit{Confirm this at the code level in ROOT and if indeed the documentation in ROOT for WW, ``set weights in all bins to 1;ignore error bars'' means this}). CSQ-WW is observed to effectively perform like MLE, but the error on the $\mu_{T}$ and $\sigma_{T}$ estimate, in comparison, is lower. Additionally, it is biased in its estimation of $\sigma_{T}$ for very low N, $\approx$ 2\% understimation of $\sigma_{T}$ (\textit{May be I have conservatively simulated too low an N value and I should make it more realistic -- N$>$150 as per Fig. 1 -- and then this statement will no longer be needed}). Fig. 3 shows the extracted parameters from the CSQ-WW option compared with CSQ. (\textit{Should generate a direct comparison with MLE})
 
@@ -83,7 +83,7 @@ The other remaining option is to use a modified version of the CSQ fit in ROOT (
 
 \clearpage
 
-Following is a summary of the different ROOT Fit methods compared and their performance in the low statistical limit:
+Following is a summary of the comparson of the different ROOT Fit methods in the low statistical limit of the FTOF system:
 
 \begin{itemize}
 	\item CSQ: Unstable and inaccurate in the low N region. 
@@ -102,15 +102,15 @@ Following is a summary of the different ROOT Fit methods compared and their perf
 
 Therefore, given the low statistics and the need to efficiently optimize the automation program during the production of a large scale system, it was best to use the CSQ-WW method, even though the statistical errors on the estimated $\sigma_{T}$ appear to be underestimated in comparison with MLE.
 
-This underestimation of the statistical errors by the finally used CSQ-WW method on the extracted time resolution, however, does not have a significant impact on the error on the time resolution obtained. This is because the final result is obtained by averaging the measured resolution over several points along the length of the bar and in the process the statistical error on the length averaged time resolution becomes ``insignificant'' (\textit{``insignificant'' may have to be justified in terms of non-statistical sources of error})
+This underestimation of the statistical errors by the finally used CSQ-WW method on the extracted time resolution, however, does not have a significant impact on the error on the time resolution obtained. This is because the final result is obtained by averaging the measured resolution over several points along the length of the bar and in the process the statistical error on the length averaged time resolution becomes ``insignificant'' (\textit{``insignificant'' should be quantified either in terms of non-statistical sources of error or in some other meaningful way})
 
-The only impact of using the underestimated errors of CSQ-WW is in the interpretation of the time resolution versus point-along-the-bar plot, where the underestimated errors may lead to the interpretation that the fluctuation of the data points is beyond what can be explained statistically. 
+The only impact of using the underestimated errors of CSQ-WW is in the interpretation of the time resolution versus point-along-the-bar plot, where the underestimated errors may lead to the interpretation that the fluctuation of the data points is far greater than what can be explained statistically. 
 
-Figure 4. shows a plot for the resolution obtained for bar combination ``2-4-6'' versus the various analysis points along the length of the bar using CSQ,CSQ-WW and MLE. Here it can be seen that the results from CSQ-WW underestimate the errors relative to CSQ and MLE. Additionally, here it can be directly observed that the CSQ method tends to underestimate the time resolution and MLE, due to ``outliers'', overestimates the time resolution and causes the resolution versus position data to no longer agree with a parabola fit.  
+Figure 4. shows a plot for the resolution obtained for bar combination ``2-4-6'' versus the various analysis points along the length of the bar using CSQ,CSQ-WW and MLE. Here it can be seen that the results from CSQ-WW underestimate the errors relative to CSQ and MLE. Additionally, it can be seen that the CSQ method tends to underestimate the time resolution and MLE, due to ``outliers'', overestimates the time resolution and causes the resolution versus position data to no longer agree with a parabola fit.  
 
 \begin{figure*}[ht]
 	\includegraphics[height=2.5in,width=5.5in]{res_vs_pstn.pdf}
-	\caption{Demo underestimation of errors by CSQWW by comparing with CSQ by way of resolution vs. point plot (I had previously compared with CSQ, but with binw=0.25, CSQ is no longer valid to compare with if sets with binw=0.25 is to be used) }
+	\caption{Comparison of ROOT Fit methods for obtain the time resolution and it errors}
 	\label{fig4}
 \end{figure*}  
 

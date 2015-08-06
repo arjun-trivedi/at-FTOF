@@ -43,17 +43,27 @@ void plot_comp_ROOT_fits_res_V_pstn(bool plot_N_V_pstn=true){
   f[MLE]->SetLineColor(kBlack);
 
   //! Make plot
+  gStyle->SetOptStat(0); //! remove stats box
+  TLegend* l=new TLegend(0.7,0.8,0.8,0.9);
   TCanvas* c=new TCanvas();
+  //! Set minumim and maximum
+  //h[CSQWW]->SetMinimum(0);
+  h[CSQWW]->SetMaximum(90);	
   h[CSQWW]->Draw();
   h[CSQ]->Draw("sames");
   h[MLE]->Draw("sames");
-  gStyle->SetOptStat("ne");
+  //gStyle->SetOptStat("ne");
   //! Fit
-  gStyle->SetOptFit(1111);
+  //gStyle->SetOptFit(1111);
   h[CSQWW]->Fit(f[CSQWW],"","sames"); 
   h[CSQ]->Fit(f[CSQ],"","sames");
   //! Parabola fit does not work for MLE because of "outlier" effect
   //h[MLE]->Fit(f[MLE],"","sames");
+  //! Add plots to legend
+  l->AddEntry(h[CSQWW],"CSQ-WW","l");
+  l->AddEntry(h[CSQ],"CSQ","l");
+  l->AddEntry(h[MLE],"MLE","l");
+  l->Draw();
   c->Update();
   c->SaveAs("${WORKSPACE}/at-FTOF/ana-time-res-err/pub_note_FTOF_err_ana/res_vs_pstn.pdf");
 
