@@ -3,14 +3,14 @@ import comp_ROOT_fits_v2 as tool
 import sys
 
 #! N range estimated conservatively from N_stats/all
-#Nlow=range(50,500,20)
-#Nhigh=range(600,15000,500)
-#N=Nlow
-#N.extend(Nhigh)
+Nlow=range(50,500,20)
+Nhigh=range(600,15000,500)
+N=Nlow
+N.extend(Nhigh)
 
 #! N range for debugging
-Nlow=range(100,500,300)
-N=Nlow
+#Nlow=range(100,500,300)
+#N=Nlow
 
 mu=int(sys.argv[1])
 sg=float(sys.argv[2])
