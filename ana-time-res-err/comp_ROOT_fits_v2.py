@@ -34,6 +34,9 @@ import ROOT
 
 import os,sys
 
+from multiprocessing import Process, Queue
+
+
 #! Set up TOF calibrations constant
 TOF_CLB=sqrt(2/3)*25
 
@@ -68,7 +71,7 @@ def get_data(mthd,mu,sg,n,binw,hist_range,gen_hist_mthd,gen_data_rsltn,ntrials):
 			
 		#! Fit T histogram
 		if   mthd=='CSQ': fit_opt="Q"
-		elif mthd=='CSQWW': fit_opt="WWQ"
+		elif mthd=='CWW': fit_opt="WWQ"
 		elif mthd=='MLE': fit_opt="LQ"
 		h.Fit("gaus",fit_opt)
 
@@ -93,9 +96,9 @@ def get_data(mthd,mu,sg,n,binw,hist_range,gen_hist_mthd,gen_data_rsltn,ntrials):
 	return [mu_av,mu_err_av,mu_av_err,sg_av,sg_err_av,sg_av_err]
 
 
-def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntrials=500):
+def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntrials=500):#,que=None):
 	"""
-	Compare ROOT fit methods: CSQ,CSQWW and MLE
+	Compare ROOT fit methods: CSQ,CWW and MLE
 
 	Input:
 	+ mu = mean of T histogram (uncalibrated)
@@ -125,8 +128,13 @@ def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntria
 	print "MU_TRUE,SG_TRUE=",MU_TRUE,SG_TRUE
 
 	NMTHDS=3
-	MTHDS=['CSQ','CSQWW','MLE']
-	#CSQ,CSQWW,MLE=range(NMTHDS)
+	MTHDS=['CSQ','CWW','MLE']
+	#CSQ,CWW,MLE=range(NMTHDS)
+
+	#! Create OUTDIR
+	OUTDIR=("%s/at_pub_figs/ROOT_fit_comps"%os.environ['FTOF_DATADIR'])
+	if not os.path.exists(OUTDIR):
+        	os.makedirs(OUTDIR)
 
 	#! data[MTHD,N]=mu_av,mu_err_av, mu_av_err,sg_av,sg_err_av, sg_av_err
 	#! + The averages are calculated using data collected from ntrials
@@ -144,8 +152,8 @@ def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntria
 	MU_AV,MU_ERR_AV,MU_AV_ERR,SG_AV,SG_ERR_AV,SG_AV_ERR=range(6)
 
 	fig,axs = plt.subplots(figsize=(20,8),nrows=2, ncols=2,sharex=True)
-	#plt.rc('text', usetex=True)
-	fig.suptitle(r'$\mu_{T}=%.2f(%d),\sigma_{T}=%.2f(%d)$'%(MU_TRUE,mu,SG_TRUE,sg),fontsize='xx-large')	
+	#fig.suptitle(r'$\mu_{T}=%.2f(%d),\sigma_{T}=%.2f(%.2f)$'%(MU_TRUE,mu,SG_TRUE,sg),fontsize='xx-large')
+	fig.suptitle(r'$\mu_{T}=%.2f ps,\sigma_{T}=%.2f ps$'%(MU_TRUE,SG_TRUE),fontsize='xx-large')	
 	x=range(len(data['CSQ']))
 	#print x
 
@@ -154,13 +162,13 @@ def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntria
 	ax.set_title(r'$\frac{\Delta\mu}{\mu_{T}}$'
 				 r' vs. N',fontsize='xx-large')
 	y_csq=  [((data['CSQ'][n][MU_AV]-MU_TRUE)/MU_TRUE)*100 for n in data['CSQ']]
-	y_csqww=[((data['CSQWW'][n][MU_AV]-MU_TRUE)/MU_TRUE)*100 for n in data['CSQWW']]
+	y_csqww=[((data['CWW'][n][MU_AV]-MU_TRUE)/MU_TRUE)*100 for n in data['CWW']]
 	y_mle=  [((data['MLE'][n][MU_AV]-MU_TRUE)/MU_TRUE)*100 for n in data['MLE']]
 	yerr_csq=  [(data['CSQ'][n][MU_AV_ERR]/MU_TRUE)*100 for n in data['CSQ']]
-	yerr_csqww=[(data['CSQWW'][n][MU_AV_ERR]/MU_TRUE)*100 for n in data['CSQWW']]
+	yerr_csqww=[(data['CWW'][n][MU_AV_ERR]/MU_TRUE)*100 for n in data['CWW']]
 	yerr_mle=  [(data['MLE'][n][MU_AV_ERR]/MU_TRUE)*100 for n in data['MLE']]
 	ax.errorbar(x,y_csq,c='r',label='fopt=CSQ',yerr=yerr_csq,fmt='o')
-	ax.errorbar(x,y_csqww,c='b',label='fopt=CSQWW',yerr=yerr_csqww,fmt='o')
+	ax.errorbar(x,y_csqww,c='b',label='fopt=CWW',yerr=yerr_csqww,fmt='o')
 	ax.errorbar(x,y_mle,c='g',label='fopt=MLE',yerr=yerr_mle,fmt='o')
 	ax.set_ylabel(r'$\frac{\Delta\mu}{\mu_{T}}\%$',fontsize='xx-large')
 	ax.set_xticks(x)
@@ -180,20 +188,20 @@ def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntria
 	ax.set_title(r'$\frac{\Delta\sigma}{\sigma_{T}}$'
 				 r' vs. N',fontsize='xx-large')
 	y_csq=  [((data['CSQ'][n][SG_AV]-SG_TRUE)/SG_TRUE)*100 for n in data['CSQ']]
-	y_csqww=[((data['CSQWW'][n][SG_AV]-SG_TRUE)/SG_TRUE)*100 for n in data['CSQWW']]
+	y_csqww=[((data['CWW'][n][SG_AV]-SG_TRUE)/SG_TRUE)*100 for n in data['CWW']]
 	y_mle=  [((data['MLE'][n][SG_AV]-SG_TRUE)/SG_TRUE)*100 for n in data['MLE']]
 	yerr_csq=  [(data['CSQ'][n][SG_AV_ERR]/SG_TRUE)*100 for n in data['CSQ']]
-	yerr_csqww=[(data['CSQWW'][n][SG_AV_ERR]/SG_TRUE)*100 for n in data['CSQWW']]
+	yerr_csqww=[(data['CWW'][n][SG_AV_ERR]/SG_TRUE)*100 for n in data['CWW']]
 	yerr_mle=  [(data['MLE'][n][SG_AV_ERR]/SG_TRUE)*100 for n in data['MLE']]
 	ax.errorbar(x,y_csq,c='r',label='fopt=CSQ',yerr=yerr_csq,fmt='o')
-	ax.errorbar(x,y_csqww,c='b',label='fopt=CSQWW',yerr=yerr_csqww,fmt='o')
+	ax.errorbar(x,y_csqww,c='b',label='fopt=CWW',yerr=yerr_csqww,fmt='o')
 	ax.errorbar(x,y_mle,c='g',label='fopt=MLE',yerr=yerr_mle,fmt='o')
 	ax.set_ylim(-5,5)
 	ax.set_ylabel(r'$\frac{\Delta\sigma}{\sigma_{T}}\%$',fontsize='xx-large')          
 	ax.set_xticks(x)
 	ax.set_xticklabels(N,rotation='vertical')
 	ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
-	ax.legend(loc='lower right')
+	ax.legend(loc='upper right')
 	#! Fix x axis
 	# shift half a step to the left
 	xmin=(3*x[0]-x[1])/2.
@@ -206,11 +214,12 @@ def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntria
 	ax.set_title(r'$\frac{\sigma_{\mu}}{\mu}$'
 				 r' vs. N',fontsize='xx-large')
 	y_csq=  [(data['CSQ'][n][MU_ERR_AV]/data['CSQ'][n][MU_AV])*100 for n in data['CSQ']]
-	y_csqww=[(data['CSQWW'][n][MU_ERR_AV]/data['CSQWW'][n][MU_AV])*100 for n in data['CSQWW']]
+	y_csqww=[(data['CWW'][n][MU_ERR_AV]/data['CWW'][n][MU_AV])*100 for n in data['CWW']]
 	y_mle=  [(data['MLE'][n][MU_ERR_AV]/data['MLE'][n][MU_AV])*100 for n in data['MLE']]
 	ax.scatter(x,y_csq,c='r',label='fopt=CSQ',s=50)
-	ax.scatter(x,y_csqww,c='b',label='fopt=CSQWW',s=50)
+	ax.scatter(x,y_csqww,c='b',label='fopt=CWW',s=50)
 	ax.scatter(x,y_mle,c='g',label='fopt=MLE',s=50)
+	ax.set_ylim(-0.10,0.10)
 	ax.set_ylabel(r'$\frac{\sigma_{\mu}}{\mu}\%$',fontsize='xx-large')
 	ax.set_xticks(x)
 	ax.set_xticklabels(N,rotation='vertical')
@@ -227,10 +236,10 @@ def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntria
 	ax.set_title(r'$\frac{\sigma_{\sigma}}{\sigma}$'
 				 r' vs. N',fontsize='xx-large')
 	y_csq=  [(data['CSQ'][n][SG_ERR_AV]/data['CSQ'][n][SG_AV])*100 for n in data['CSQ']]
-	y_csqww=[(data['CSQWW'][n][SG_ERR_AV]/data['CSQWW'][n][SG_AV])*100 for n in data['CSQWW']]
+	y_csqww=[(data['CWW'][n][SG_ERR_AV]/data['CWW'][n][SG_AV])*100 for n in data['CWW']]
 	y_mle=  [(data['MLE'][n][SG_ERR_AV]/data['MLE'][n][SG_AV])*100 for n in data['MLE']]
 	ax.scatter(x,y_csq,c='r',label='fopt=CSQ',s=50)
-	ax.scatter(x,y_csqww,c='b',label='fopt=CSQWW',s=50)
+	ax.scatter(x,y_csqww,c='b',label='fopt=CWW',s=50)
 	ax.scatter(x,y_mle,c='g',label='fopt=MLE',s=50)
 	ax.set_ylabel(r'$\frac{\sigma_{\sigma}}{\sigma}\%$',fontsize='xx-large')
 	ax.set_xticks(x)
@@ -243,10 +252,16 @@ def comp_ROOT_fits(mu,sg,N,binw,hist_range,gen_hist_mthd,gen_data_rsltn="",ntria
 	xmax=(3*x[-1]-x[-2])/2.
 	ax.set_xlim(xmin,xmax)
 	
-	fig_name="fit-comp_mu-%d_sg-%d_binw-%.2f_hist_range-%s_gen_hist_mthd-%s"%(mu,sg,binw,hist_range,gen_hist_mthd)
+	#fig_name="mu-%d_sg-%.2f_binw-%.2f_hist_range-%s_gen_hist_mthd-%s"%(mu,sg,binw,hist_range,gen_hist_mthd)
+ 	#fig.savefig("/%s/%s.png"%(OUTDIR,fig_name))
+        #fig.savefig("/%s/%s.eps"%(OUTDIR,fig_name))	
+	fig_name="fit-comp_mu-%d_sg-%.2f_binw-%.2f_hist_range-%s_gen_hist_mthd-%s"%(mu,sg,binw,hist_range,gen_hist_mthd)
 	fig.savefig("/tmp/%s.png"%(fig_name))
 	fig.savefig("/tmp/%s.eps"%(fig_name))
 
+	# if que!=None:
+	# 	que.put(0)
+	return 0
 	print "******\n"
 
 	

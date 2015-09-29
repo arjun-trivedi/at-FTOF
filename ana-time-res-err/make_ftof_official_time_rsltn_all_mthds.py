@@ -29,8 +29,8 @@ DATADIR=os.path.join(os.environ['FTOF_DATADIR'],'ftof_official')
 TOF_CLB=sqrt(2/3)*25 #calibration to get values from raw TDC values
 
 #! **** Prepare ouput data structures: ****
-#! + rsltn[set,order,cmbn,mthd]
-#! + rsltn_err[set,order,cmbn,mthd] 
+#! + rsltn[set,order,cmbn,mthd][p]
+#! + rsltn_err[set,order,cmbn,mthd][p] 
 #! + h[set,order,cmbn,mthd] (histogram with rsltn and rsltn_err)
 #! 	+ Note h[] is created and filled in the end once rsltn and rsltn_err have been obtained
 #!	+ h[] stored in $FTOF_DATADIR/ftof_official_time_rsltn_all_mthds/time_res.root
@@ -38,7 +38,8 @@ TOF_CLB=sqrt(2/3)*25 #calibration to get values from raw TDC values
 #! + set = FTOF set number, ordered by length
 #! + order = norm or comp
 #! + cmbn = the 6 combinations
-#! + method = arthmtc,CSQ,CSQWW,MLE
+#! + method = arthmtc,CSQ,CSQWW,MLEa
+#! + p = point along bar
 ORDERL=['norm','comp']
 CMBNL=['1_2_3','2_3_4','3_4_5','4_5_6','1_3_5','2_4_6']
 MTHDL=['arthmtc','CSQ','CSQWW','MLE']

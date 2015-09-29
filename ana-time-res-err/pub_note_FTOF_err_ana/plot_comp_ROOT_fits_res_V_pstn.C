@@ -31,6 +31,18 @@ void plot_comp_ROOT_fits_res_V_pstn(bool plot_N_V_pstn=true){
   h[CSQ]->SetMarkerColor(kBlue);
   h[MLE]->SetLineColor(kBlack);
   h[MLE]->SetMarkerColor(kBlack);
+  //! aesthetics common to all plots
+  //! + I have borrowed these from Gleb's MyMainFrame.cxx
+  //! + The one's that I have tweaked are noted
+  gStyle->SetFrameLineWidth(3);
+  gStyle->SetLineWidth(3);
+  for (int i=0;i<NMTHD;i++){
+    h[i]->GetYaxis()->SetTitle("resolution (ps)");
+    h[i]->GetXaxis()->SetTitleSize(0.06);
+    h[i]->GetXaxis()->SetTitleOffset(0.9);
+    h[i]->GetYaxis()->SetTitleSize(0.06);
+    h[i]->GetYaxis()->SetTitleOffset(0.8);//!GF 1.3
+  }
 
   //! Quadratic fit = pol2 = [2]*x**2 + [1]*x + [0]
   TF1* f[NMTHD];
@@ -65,7 +77,7 @@ void plot_comp_ROOT_fits_res_V_pstn(bool plot_N_V_pstn=true){
   l->AddEntry(h[MLE],"MLE","l");
   l->Draw();
   c->Update();
-  c->SaveAs("${WORKSPACE}/at-FTOF/ana-time-res-err/pub_note_FTOF_err_ana/res_vs_pstn.pdf");
+  c->SaveAs("${WORKSPACE}/at-FTOF/ana-time-res-err/pub_note_FTOF_err_ana/comp_ROOT_fits_res_vs_pstn.pdf");
 
   //!Make plot of sgma_sgma/sgma
   TH1F* htmp[NMTHD];
