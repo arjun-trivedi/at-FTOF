@@ -1743,7 +1743,9 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
      adc_num << "point_" << i+1;      
       outFile->cd(adc_num.str().c_str());    
        adc_num.str("");  
-       
+      
+      gStyle->SetOptStat("nemMrRuoi"); 
+      gStyle->SetOptFit(1111);
        
       hist_2_3_4[i]->Fit("gaus","WWQ");
    

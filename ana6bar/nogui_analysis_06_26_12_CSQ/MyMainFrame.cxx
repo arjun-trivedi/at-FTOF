@@ -1755,6 +1755,9 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       // resol_2_3_4->SetBinError(i+1,25.*sqrt(2./3.)*(gtl->GetParError(2)));
      
       // gtl->Delete();  
+     
+      gStyle->SetOptStat("nemMrRuoi"); 
+      gStyle->SetOptFit(1111);
 
       TF1 *gtl=NULL;
 
@@ -1762,7 +1765,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_2_3_4[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2);
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -1807,7 +1810,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_1_2_3[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -1851,7 +1854,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_3_4_5[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -1895,7 +1898,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_4_5_6[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -1940,7 +1943,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_1_3_5[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -1985,7 +1988,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_2_4_6[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -2039,7 +2042,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_2_3_4_cont[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -2084,7 +2087,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_1_2_3_cont[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -2129,7 +2132,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_3_4_5_cont[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -2173,7 +2176,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_4_5_6_cont[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2);  
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -2218,7 +2221,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_1_3_5_cont[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
@@ -2263,7 +2266,7 @@ hist_tdcdiff_corr[iii]->Fill(tdc_corr_cont[2*iii]-tdc_corr_cont[2*iii+1],1.);
       if (fr==0){//! i.e. CSQ fit is successful
         gtl = hist_2_4_6_cont[i]->GetFunction("gaus");
 
-        double rel_err=gtl->GetParameter(2)/gtl->GetParError(2);
+        double rel_err=gtl->GetParError(2)/gtl->GetParameter(2); 
         if (rel_err<0.5){
 
           sigma_tdc = gtl->GetParameter(2);
