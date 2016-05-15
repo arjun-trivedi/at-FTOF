@@ -1,18 +1,26 @@
-#cp bar_stats_write-up_N-vs-p.pdf fit-comp_MU-* res_vs_pstn.pdf $WORKSPACE/NIM_TOF12/arjun_gary/fig_arjun_gary_err_ana/
-
-set NIM_repo_dir=$WORKSPACE/NIM_TOF12/arjun_gary/fig_arjun_gary_err_ana
+#!/bin/tcsh
+setenv NIM_repo_dir "$WORKSPACE/NIM_TOF12/arjun_gary/fig_arjun_gary_err_ana"
+echo "Copying to $NIM_repo_dir"
 #! 1. copy N_stats
-cp ./N_stats/all/N_range.pdf $NIM_repo_dir
-cp ./N_stats/N_vs_p/62_norm_1_2_3.pdf $NIM_repo_dir
+#cp ./N_stats/all/N_range.pdf $NIM_repo_dir
+#cp ./N_stats/N_vs_p/62_norm_1_2_3.pdf $NIM_repo_dir
 
 #! 2. copy ROOT fit comparison plots (Note that when copying over decimal points in original are removed because pdflatex is unable to interpret them)
 #! Use hist_ragne=exp, gen_hist_mthd=ROOTic by default
 #! 1.35, binw=0.25
-cp /tmp/fit-comp_mu-190_sg-1.35_binw-0.25_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/fit-comp_mu-190_sg-135_binw-025_hist_range-exp_gen_hist_mthd-ROOTic.pdf
+#cp /tmp/fit-comp_mu-190_sg-1.35_binw-0.25_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/fit-comp_mu-190_sg-135_binw-025_hist_range-exp_gen_hist_mthd-ROOTic.pdf
 #! 3.00, binw=1.00
-cp $HOME/tmp/FTOF/results/052615/fit-comp_mu-190_sg-3_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/fit-comp_mu-190_sg-3_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf 
+#cp $HOME/tmp/FTOF/results/052615/fit-comp_mu-190_sg-3_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/fit-comp_mu-190_sg-3_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf 
 #! 4.70, binw=1.00
-cp /tmp/fit-comp_mu-190_sg-4.70_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/fit-comp_mu-190_sg-470_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf
+#cp /tmp/fit-comp_mu-190_sg-4.70_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/fit-comp_mu-190_sg-470_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf
+
+#[02-15-16] Updated results from [09-29-16] which I was supposed to update the write-up with
+#! 1.  sg=1.25(25.52ps), binw=0.25 (Note binw=0.25 was "intentionally" used for low bars because their std-dev if of the order of 1)
+cp ./comp_ROOT_fits/mu-190_sg-1.25_binw-0.25_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/mu-190_sg-125_binw-025_hist_range-exp_gen_hist_mthd-ROOTic.pdf
+#! 2.  sg=3.25(?), binw=1
+cp ./comp_ROOT_fits/mu-190_sg-3.25_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/mu-190_sg-325_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf
+#! 3. sg=5.30(108.18ps), binw=1
+cp ./comp_ROOT_fits/mu-190_sg-5.30_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/mu-190_sg-530_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf
 
 #! 3. comp_ROOT_fits_res_vs_pstn
-cp ./comp_ROOT_fits_res_vs_pstn.pdf $NIM_repo_dir
+#cp ./comp_ROOT_fits_res_vs_pstn.pdf $NIM_repo_dir
