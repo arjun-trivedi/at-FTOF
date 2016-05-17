@@ -15,12 +15,20 @@ echo "Copying to $NIM_repo_dir"
 #cp /tmp/fit-comp_mu-190_sg-4.70_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/fit-comp_mu-190_sg-470_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf
 
 #[02-15-16] Updated results from [09-29-16] which I was supposed to update the write-up with
-#! 1.  sg=1.25(25.52ps), binw=0.25 (Note binw=0.25 was "intentionally" used for low bars because their std-dev if of the order of 1)
+#! 2.1.  sg=1.25(25.52ps), binw=0.25 (Note binw=0.25 was "intentionally" used for low bars because their std-dev is of the order of 1)
 cp ./comp_ROOT_fits/mu-190_sg-1.25_binw-0.25_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/mu-190_sg-125_binw-025_hist_range-exp_gen_hist_mthd-ROOTic.pdf
-#! 2.  sg=3.25(?), binw=1
+#! 2.2.  sg=3.25(?), binw=1
 cp ./comp_ROOT_fits/mu-190_sg-3.25_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/mu-190_sg-325_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf
-#! 3. sg=5.30(108.18ps), binw=1
+#! 2.3. sg=5.30(108.18ps), binw=1
 cp ./comp_ROOT_fits/mu-190_sg-5.30_binw-1.00_hist_range-exp_gen_hist_mthd-ROOTic.pdf $NIM_repo_dir/mu-190_sg-530_binw-100_hist_range-exp_gen_hist_mthd-ROOTic.pdf
+#[05-17-16] Updated results following incorporation of feedback from meetings on [02-15-16] and [03-21-16]
+#! 2.1.  sg=1.25(25.52ps), binw=0.25 (Note binw=0.25 was "intentionally" used for low bars because their std-dev is of the order of 1)
+cp ./data_comp_ROOT_fits/mu-190_sg-1.25_binw-0.25.pdf $NIM_repo_dir/mu-190_sg-125_binw-025.pdf
+#! 2.2.  sg=3.25(?), binw=1
+cp ./data_comp_ROOT_fits/mu-190_sg-3.25_binw-1.00.pdf $NIM_repo_dir/mu-190_sg-325_binw-100.pdf
+#! 2.3. sg=5.30(108.18ps), binw=1
+cp ./data_comp_ROOT_fits/mu-190_sg-5.30_binw-1.00.pdf $NIM_repo_dir/mu-190_sg-530_binw-100.pdf
+
 
 #! 3. comp_ROOT_fits_res_vs_pstn
 #cp ./comp_ROOT_fits_res_vs_pstn.pdf $NIM_repo_dir
