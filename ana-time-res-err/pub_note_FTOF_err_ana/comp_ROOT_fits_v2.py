@@ -4,6 +4,7 @@ from math import *
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 
 from collections import OrderedDict
 
@@ -288,6 +289,13 @@ class CompROOTFits:
 		fig,axs = plt.subplots(figsize=(fig_size_x,fig_size_y),nrows=4, ncols=1,sharex=True)
 		fig.suptitle(r'$\mu_{true}=%.2f ps \ \sigma_{true}=%.2f ps$'%(self.MU_TRUE,self.SG_TRUE),fontsize='xx-large')	
 		x=range(len(data['CSQ']))
+		#! Setup xticks to contain every other x-value only so that the xaxis not too crowded i.e.:
+		#! xticks=[50,'',70,'',90,...
+		#!xticks=[ j if i%2==0 else '' for i,j in enumerate(self.N) ]
+		#! Maybe this uncrowding is already taken care of by reducing the number of N-points
+		#! by having to make N=[50,500],[1000,15000] and the only way the lower N range can be
+		#! constructed is by reducing the number of points (for details see 'mem_hack_comp_ROOT_fits.py') .
+		xticks=self.N 
 		#print x
 
 		#! Plot mu/mu_T versus N
@@ -314,7 +322,8 @@ class CompROOTFits:
 		ax.set_ylabel(r'$\Delta\mu/\mu_{true}\%$',fontsize='x-large')
 		ax.set_ylim(-0.05,0.05)
 		ax.set_xticks(x)
-		ax.set_xticklabels(self.N,rotation='vertical')
+		#!ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
 		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
 		if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
 			ax.legend(loc='upper right')
@@ -325,11 +334,54 @@ class CompROOTFits:
 		xmax=(3*x[-1]-x[-2])/2.
 		ax.set_xlim(xmin,xmax)
 		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#! rectangular 'patch' to show change in x-scale from [50,500;30] to [1000,15000;1000]
+		px=self.N.index(500)
+		pw=self.N.index(1000)-self.N.index(500)
+		py=ax.get_ylim()[0]
+		ph=ax.get_ylim()[1]-ax.get_ylim()[0]
+		ax.add_patch(patches.Rectangle((px,py),pw,ph,color='red',alpha=0.5))
+
+		#! Plot error on estimated mu
+		#! new layout
+		#! ax=axs[1][0]
+		ax=axs[1]#![0]
+		# ax.set_title(r'$\frac{\sigma_{\mu}}{\mu}$'
+		# 			 r' versus N',fontsize='xx-large')
+		if self.SG==1.25: #! Draw title only for "left most column" of fig in nim-pub
+			ax.set_title(r'$\sigma_{\mu}/\mu$'
+						 r' versus N',fontsize='xx-large',x=plot_title_loc_x,y=plot_title_loc_y,rotation='vertical')
+		y_csq=  [(data['CSQ'][n][MU_ERR_AV]/data['CSQ'][n][MU_AV])*100 for n in data['CSQ']]
+		y_csqww=[(data['CSQ-WW'][n][MU_ERR_AV]/data['CSQ-WW'][n][MU_AV])*100 for n in data['CSQ-WW']]
+		y_mle=  [(data['MLE'][n][MU_ERR_AV]/data['MLE'][n][MU_AV])*100 for n in data['MLE']]
+		ax.scatter(x,y_csq,c='r',label='fopt=CSQ',s=50)
+		ax.scatter(x,y_csqww,c='b',label='fopt=CSQ-WW',s=50)
+		ax.scatter(x,y_mle,c='g',label='fopt=MLE',s=50)
+		#! Set xlabel only for the "bottom most" plot since the xaxis is shared
+		#ax.set_xlabel('N',fontsize='x-large')
+		#ax.set_ylabel(r'$\frac{\sigma_{\mu}}{\mu}\%$',fontsize='xx-large')
+		ax.set_ylabel(r'$\sigma_{\mu}/{\mu}\%$',fontsize='x-large')
+		ax.set_xticks(x)
+		#ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
+		if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
+			ax.legend(loc='upper right')
+		#! Fix x axis
+		# shift half a step to the left
+		xmin=(3*x[0]-x[1])/2.
+		# shift half a step to the right
+		xmax=(3*x[-1]-x[-2])/2.
+		ax.set_xlim(xmin,xmax)
+		#! rectangular 'patch' to show change in x-scale from [50,500;30] to [1000,15000;1000]
+		px=self.N.index(500)
+		pw=self.N.index(1000)-self.N.index(500)
+		py=ax.get_ylim()[0]
+		ph=ax.get_ylim()[1]-ax.get_ylim()[0]
+		ax.add_patch(patches.Rectangle((px,py),pw,ph,color='red',alpha=0.5))
 
 		#! Plot sg/sg_T versus N
 		#! new layout
 		#! ax=axs[0][1]
-		ax=axs[1]#![0]
+		ax=axs[2]#![0]
 		# ax.set_title(r'$\frac{\Delta\sigma}{\sigma_{true}}$'
 		# 			 r' versus N',fontsize='xx-large')
 		if self.SG==1.25: #! Draw title only for "left most column" of fig in nim-pub
@@ -350,7 +402,8 @@ class CompROOTFits:
 		#ax.set_ylabel(r'$\frac{\Delta\sigma}{\sigma_{true}}\%$',fontsize='xx-large')  
 		ax.set_ylabel(r'$\Delta\sigma/\sigma_{true}\%$',fontsize='x-large')        
 		ax.set_xticks(x)
-		ax.set_xticklabels(self.N,rotation='vertical')
+		#ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
 		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
 		if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
 			ax.legend(loc='upper right')
@@ -360,36 +413,12 @@ class CompROOTFits:
 		# shift half a step to the right
 		xmax=(3*x[-1]-x[-2])/2.
 		ax.set_xlim(xmin,xmax)
-
-		#! Plot error on estimated mu
-		#! new layout
-		#! ax=axs[1][0]
-		ax=axs[2]#![0]
-		# ax.set_title(r'$\frac{\sigma_{\mu}}{\mu}$'
-		# 			 r' versus N',fontsize='xx-large')
-		if self.SG==1.25: #! Draw title only for "left most column" of fig in nim-pub
-			ax.set_title(r'$\sigma_{\mu}/\mu$'
-						 r' versus N',fontsize='xx-large',x=plot_title_loc_x,y=plot_title_loc_y,rotation='vertical')
-		y_csq=  [(data['CSQ'][n][MU_ERR_AV]/data['CSQ'][n][MU_AV])*100 for n in data['CSQ']]
-		y_csqww=[(data['CSQ-WW'][n][MU_ERR_AV]/data['CSQ-WW'][n][MU_AV])*100 for n in data['CSQ-WW']]
-		y_mle=  [(data['MLE'][n][MU_ERR_AV]/data['MLE'][n][MU_AV])*100 for n in data['MLE']]
-		ax.scatter(x,y_csq,c='r',label='fopt=CSQ',s=50)
-		ax.scatter(x,y_csqww,c='b',label='fopt=CSQ-WW',s=50)
-		ax.scatter(x,y_mle,c='g',label='fopt=MLE',s=50)
-		#! Set xlabel only for the "bottom most" plot since the xaxis is shared
-		#ax.set_xlabel('N',fontsize='x-large')
-		#ax.set_ylabel(r'$\frac{\sigma_{\mu}}{\mu}\%$',fontsize='xx-large')
-		ax.set_ylabel(r'$\sigma_{\mu}/{\mu}\%$',fontsize='x-large')
-		ax.set_xticks(x)
-		ax.set_xticklabels(self.N,rotation='vertical')
-		if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
-			ax.legend(loc='upper right')
-		#! Fix x axis
-		# shift half a step to the left
-		xmin=(3*x[0]-x[1])/2.
-		# shift half a step to the right
-		xmax=(3*x[-1]-x[-2])/2.
-		ax.set_xlim(xmin,xmax)
+		#! rectangular 'patch' to show change in x-scale from [50,500;30] to [1000,15000;1000]
+		px=self.N.index(500)
+		pw=self.N.index(1000)-self.N.index(500)
+		py=ax.get_ylim()[0]
+		ph=ax.get_ylim()[1]-ax.get_ylim()[0]
+		ax.add_patch(patches.Rectangle((px,py),pw,ph,color='red',alpha=0.5))
 
 		#! Plot error on estimated sigma
 		#! new layout
@@ -410,7 +439,8 @@ class CompROOTFits:
 		#ax.set_ylabel(r'$\frac{\sigma_{\sigma}}{\sigma}\%$',fontsize='xx-large')
 		ax.set_ylabel(r'$\sigma_{\sigma}/\sigma\%$',fontsize='x-large')
 		ax.set_xticks(x)
-		ax.set_xticklabels(self.N,rotation='vertical')
+		#ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
 		if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
 			ax.legend(loc='upper right')
 		#! Fix x axis
@@ -419,6 +449,12 @@ class CompROOTFits:
 		# shift half a step to the right
 		xmax=(3*x[-1]-x[-2])/2.
 		ax.set_xlim(xmin,xmax)
+		#! rectangular 'patch' to show change in x-scale from [50,500;30] to [1000,15000;1000]
+		px=self.N.index(500)
+		pw=self.N.index(1000)-self.N.index(500)
+		py=ax.get_ylim()[0]
+		ph=ax.get_ylim()[1]-ax.get_ylim()[0]
+		ax.add_patch(patches.Rectangle((px,py),pw,ph,color='red',alpha=0.5))
 
 		#! Don't tag file name with 'hist_range'(=exp/dflt) and 'gen_hist_mthd'(=ROOTic/Pythonic) anymore since
 		#! those options make no difference (even though they are still passed in arguments, for just-in-case)

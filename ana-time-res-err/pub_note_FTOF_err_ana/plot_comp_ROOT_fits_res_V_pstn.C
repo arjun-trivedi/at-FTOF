@@ -25,6 +25,9 @@ void plot_comp_ROOT_fits_res_V_pstn(bool plot_N_V_pstn=true){
   h[CSQWW]->SetName(TString::Format("%s_CSQWW",h[CSQWW]->GetName()));
   h[CSQ]->SetName(TString::Format("%s_CSQ",h[CSQ]->GetName()));
   h[MLE]->SetName(TString::Format("%s_MLE",h[MLE]->GetName()));
+  h[CSQWW]->SetTitle("");
+  h[CSQ]->SetTitle("");
+  h[MLE]->SetTitle("");
   h[CSQWW]->SetMarkerColor(kRed);
   h[CSQWW]->SetLineColor(kRed);
   h[CSQ]->SetLineColor(kBlue);
@@ -32,16 +35,22 @@ void plot_comp_ROOT_fits_res_V_pstn(bool plot_N_V_pstn=true){
   h[MLE]->SetLineColor(kBlack);
   h[MLE]->SetMarkerColor(kBlack);
   //! aesthetics common to all plots
+  gStyle->Reset() //! Reset any aesthetics already set
   //! + I have borrowed these from Gleb's MyMainFrame.cxx
   //! + The one's that I have tweaked are noted
   gStyle->SetFrameLineWidth(3);
   gStyle->SetLineWidth(3);
   for (int i=0;i<NMTHD;i++){
-    h[i]->GetYaxis()->SetTitle("resolution (ps)");
-    h[i]->GetXaxis()->SetTitleSize(0.06);
-    h[i]->GetXaxis()->SetTitleOffset(0.9);
-    h[i]->GetYaxis()->SetTitleSize(0.06);
-    h[i]->GetYaxis()->SetTitleOffset(0.8);//!GF 1.3
+    h[i]->GetYaxis()->SetTitle("Resolution (ps)");
+    h[i]->GetXaxis()->SetTitle("Position (cm)");
+    h[i]->GetXaxis()->SetTitleSize(0.05); //! GF 0.06
+    h[i]->GetXaxis()->SetTitleOffset(0.9); //! GF 0.9
+    h[i]->GetYaxis()->SetTitleSize(0.05); //! GF 0.06
+    h[i]->GetYaxis()->SetTitleOffset(0.9);//!GF 1.3
+    h[i]->GetXaxis()->SetNdivisions(5);//!GF 1.3
+    //! AT reduced size of labels on X and Y axis
+    h[i]->GetXaxis()->SetLabelSize(0.05);
+    h[i]->GetYaxis()->SetLabelSize(0.05);
   }
 
   //! Quadratic fit = pol2 = [2]*x**2 + [1]*x + [0]

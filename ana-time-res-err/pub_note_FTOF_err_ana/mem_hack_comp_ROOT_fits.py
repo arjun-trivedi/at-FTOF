@@ -25,5 +25,5 @@ gen_hist_mthd=sys.argv[5]
 
 print "mem_hack_comp_ROOT_fits: Received: mu,sg,binw,hist_range,gen_hist_mthd=",mu,sg,binw,hist_range,gen_hist_mthd
 tool=CompROOTFits(mu,sg,N,binw,hist_range,gen_hist_mthd)
-tool.save_data_ROOT_fits() #! debug, in the sense, when only the plots needs to be refined using existing data
+#tool.save_data_ROOT_fits() #! debug, in the sense, when only the plots needs to be refined using existing data
 tool.plot_data_ROOT_fits()

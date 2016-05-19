@@ -9,9 +9,13 @@ from math import *
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 
+#! numpy
+import numpy as np
+
 #! rootpy imports
 import rootpy
 from rootpy.io import root_open, DoesNotExist
+from rootpy.plotting import Hist2D, Hist
 import ROOT
 
 #! to get bar_length[]
@@ -99,6 +103,17 @@ print "Done making N output data structures"
 #! *************************************
 
 #! Now make plots and save them
+#! + Set up general-histogram aesthetics as per Gleb's code (macro.cxx) 
+#!   to maintain consistency with other ROOT-hists in pub
+#! + Any code that I modified is noted and/or commented out
+ROOT.gStyle.Reset() #! Reset aesthetics which may have been set by some other plot functio
+ROOT.gStyle.SetOptStat(0)
+ROOT.gStyle.SetFrameLineWidth(3)
+ROOT.gStyle.SetLineWidth(3)
+#!ROOT.gStyle.SetHistLineWidth(3)
+#!ROOT.gStyle.SetTitleH(0.09)
+#!ROOT.gStyle.SetTitleW(0.65)
+
 #OUTDIR=("%s/at_pub_figs/N_stats"%os.environ['FTOF_DATADIR'])
 OUTDIR=("%s/at-FTOF/ana-time-res-err/pub_note_FTOF_err_ana/N_stats"%os.environ['WORKSPACE'])
 if not os.path.exists(OUTDIR):
@@ -113,13 +128,37 @@ for k in N.keys():
 	num_points=len(N[k])
 	for ip in range(num_points):
 		N_all.append(N[k][ip+1])
+#! Now plot N_all[]
+#! Following lines were making a Pythonic histogram,
+#! but since the other plots (N_vs_p; directly from 'ftof_offical' data)
+#! made by this script are ROOTic, I am making this plot ROOTic too.
 fig,ax = plt.subplots(figsize=(20,8))
 ax.set_title("Range of N for all production data",fontsize='xx-large')
 ax.set_xlabel("N",fontsize='xx-large')
-plt.hist(N_all)
-fig.savefig("%s/N_range.eps"%outdir)
-fig.savefig("%s/N_range.png"%outdir)
-fig.savefig("%s/N_range.pdf"%outdir)
+plt.hist(N_all,100,(0,600))
+fig.savefig("%s/N_range_Pythonic.png"%outdir)
+fig.savefig("%s/N_range_Pythonic.pdf"%outdir)
+#! ROOTic plot
+h=Hist(60,0,600)
+h.SetTitle("Range of N for all production data")
+h.SetXTitle("N")
+#! Fill with N_all
+h.fill_array(N_all)
+#! Set error bars on all bins to 0
+err=np.zeros(100,'d')
+h.SetError(err)
+#! Set up particular-histogram aesthetics (also inspired by GF)
+h.GetXaxis().SetTitleSize(0.05)
+h.GetXaxis().SetTitleOffset(0.9)
+h.GetYaxis().SetTitleSize(0.05)
+h.GetYaxis().SetTitleOffset(0.9)
+# h.GetXaxis().SetNdivisions(5) #! Not using this option for this hist
+h.SetLineWidth(3)
+#! Draw and save hist
+c=ROOT.TCanvas()
+h.Draw("B")
+c.SaveAs("%s/N_range.png"%outdir)
+c.SaveAs("%s/N_range.pdf"%outdir)
 
 #! Make plots for N vs p for {set}*{order}*'1_2_3'
 outdir=("%s/N_vs_p"%OUTDIR)
@@ -143,31 +182,31 @@ for k in N.keys():
 	npoints=(int)(bar_length[setn-1]/3.)
 	if (npoints!=num_points):
 		sys.exit("npoints (calculated using bar_length)!=num_points(obtained from N data structure). Exiting. Check what is going on.")
-	#! Set up histogram aesthetics, also as per Gleb's code
-	ROOT.gStyle.SetOptStat(0)
-	ROOT.gStyle.SetFrameLineWidth(3)
-	ROOT.gStyle.SetLineWidth(3)
-	ROOT.gStyle.SetNdivisions(5)
+	#! Now create and draw hists
 	c=ROOT.TCanvas()
 	h=ROOT.TH1F("h","h",npoints,0,bar_length[setn-1])
 	h.SetTitle("N versus point for 6 bar set of length %.2f cm"%bar_length[setn-1])
 	h.SetMarkerStyle(ROOT.gROOT.ProcessLine("kFullCircle"))
 	h.SetMarkerColor(ROOT.gROOT.ProcessLine("kBlack"))
-	h.GetXaxis().SetTitle("position (cm)");
+	h.GetXaxis().SetTitle("Position (cm)");
 	h.GetYaxis().SetTitle("N");
-	h.GetXaxis().SetTitleSize(0.06);
-	h.GetXaxis().SetTitleOffset(0.9);
+	#! Set up histogram aesthetics
+	h.GetXaxis().SetTitleSize(0.05)
+	h.GetXaxis().SetTitleOffset(0.9)
+	h.GetYaxis().SetTitleSize(0.05)
+	h.GetYaxis().SetTitleOffset(0.9)
 	h.SetMinimum(0)
 	h.SetMaximum(600)
 	for ip in range(h.GetNbinsX()):
 		h.SetBinContent(ip+1,N[k][ip+1])
 		h.SetBinError(ip+1,0)
 	h.Draw("P")
+	#! Save		
 	c.SaveAs("%s/%02d_%s_%s.png"%(outdir,setn,order,cmbn))
 	c.SaveAs("%s/%02d_%s_%s.pdf"%(outdir,setn,order,cmbn))
 	
 print "***Done making plots ***"
 #! ************************************
 
-print "If the program is not exiting gracefully then wait since Python is probably doing Garbage Collection and that takes a while for this program."
+print "If the program is not exiting gracefully then wait since Python is probably doing Garbage Collection and that takes a while for this program. \n This particular program takers extra long here and using the 'killall plot_N_stats.py' is OK, it seems."
 

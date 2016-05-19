@@ -2,8 +2,8 @@
 setenv NIM_repo_dir "$WORKSPACE/NIM_TOF12/arjun_gary/fig_arjun_gary_err_ana"
 echo "Copying to $NIM_repo_dir"
 #! 1. copy N_stats
-#cp ./N_stats/all/N_range.pdf $NIM_repo_dir
-#cp ./N_stats/N_vs_p/62_norm_1_2_3.pdf $NIM_repo_dir
+cp ./N_stats/all/N_range.pdf $NIM_repo_dir
+cp ./N_stats/N_vs_p/62_norm_1_2_3.pdf $NIM_repo_dir
 
 #! 2. copy ROOT fit comparison plots (Note that when copying over decimal points in original are removed because pdflatex is unable to interpret them)
 #! Use hist_ragne=exp, gen_hist_mthd=ROOTic by default
@@ -31,4 +31,4 @@ cp ./data_comp_ROOT_fits/mu-190_sg-5.30_binw-1.00.pdf $NIM_repo_dir/mu-190_sg-53
 
 
 #! 3. comp_ROOT_fits_res_vs_pstn
-#cp ./comp_ROOT_fits_res_vs_pstn.pdf $NIM_repo_dir
+cp ./comp_ROOT_fits_res_vs_pstn.pdf $NIM_repo_dir
