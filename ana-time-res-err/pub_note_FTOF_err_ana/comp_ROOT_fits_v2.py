@@ -267,9 +267,20 @@ class CompROOTFits:
 		data=self.get_data_from_file()
 		#! Close file
 		self.FOUT_DATA.close()
+
+		self.plot_data_ROOT_fits_NIM_pub(data)
+		self.plot_data_ROOT_fits_gary(data)
 			
+		print "Done CompROOTFits::plot_data_ROOT_fits()"
+		return 0
+
+	def plot_data_ROOT_fits_NIM_pub(self,data):#,que=None):
+		
+		print "In CompROOTFits::plot_data_ROOT_fits_NIM_pub()"
+
 		#! Dictionary to get data from data[mthd][n]
-		MU_AV,MU_ERR_AV,MU_AV_ERR,SG_AV,SG_ERR_AV,SG_AV_ERR=range(6)
+		MU_AV,MU_ERR_AV,MU_AV_ERR,SG_AV,SG_ERR_AV,SG_AV_ERR,SG_RMS_ERR=range(7)
+		#MU_AV,MU_ERR_AV,MU_AV_ERR,SG_AV,SG_ERR_AV,SG_AV_ERR=range(6)
 
 		#! Set up some plotting-aesthetic related constants
 		#! Set dimensions of the figure
@@ -285,9 +296,7 @@ class CompROOTFits:
 		plot_title_loc_y=0.68
 
 
-		#!fig,axs = plt.subplots(figsize=(20,8),nrows=2, ncols=2,sharex=True)
-		fig,axs = plt.subplots(figsize=(fig_size_x,fig_size_y),nrows=4, ncols=1,sharex=True)
-		fig.suptitle(r'$\mu_{true}=%.2f ps \ \sigma_{true}=%.2f ps$'%(self.MU_TRUE,self.SG_TRUE),fontsize='xx-large')	
+		#! Setup xaxis values and their ticks which will be common to all plots
 		x=range(len(data['CSQ']))
 		#! Setup xticks to contain every other x-value only so that the xaxis not too crowded i.e.:
 		#! xticks=[50,'',70,'',90,...
@@ -298,6 +307,11 @@ class CompROOTFits:
 		xticks=self.N 
 		#print x
 
+		#! Make NIM pub plot
+		#!fig,axs = plt.subplots(figsize=(20,8),nrows=2, ncols=2,sharex=True)
+		fig,axs = plt.subplots(figsize=(fig_size_x,fig_size_y),nrows=4, ncols=1,sharex=True)
+		fig.suptitle(r'$\mu_{true}=%.2f ps \ \sigma_{true}=%.2f ps$'%(self.MU_TRUE,self.SG_TRUE),fontsize='xx-large')	
+		
 		#! Plot mu/mu_T versus N
 		#! new layout
 		#! ax=axs[0][0]
@@ -462,8 +476,218 @@ class CompROOTFits:
 		fig_name="mu-%d_sg-%.2f_binw-%.2f"%(self.MU,self.SG,self.BINW)
  		fig.savefig("/%s/%s.png"%(self.OUTDIR,fig_name))
 		fig.savefig("/%s/%s.pdf"%(self.OUTDIR,fig_name))	
+
+		print "Done CompROOTFits::plot_data_ROOT_fits_NIM_pub()"
+		return 0
+
+	def plot_data_ROOT_fits_gary(self,data):#,que=None):
 		
-		print "Done CompROOTFits::plot_data_ROOT_fits()"
+		print "In CompROOTFits::plot_data_ROOT_fits_gary()"
+
+		#! Dictionary to get data from data[mthd][n]
+		MU_AV,MU_ERR_AV,MU_AV_ERR,SG_AV,SG_ERR_AV,SG_AV_ERR,SG_RMS_ERR=range(7)
+		#MU_AV,MU_ERR_AV,MU_AV_ERR,SG_AV,SG_ERR_AV,SG_AV_ERR=range(6)
+
+		#! Setup xaxis values and their ticks which will be common to all plots
+		x=range(len(data['CSQ']))
+		#! Setup xticks to contain every other x-value only so that the xaxis not too crowded i.e.:
+		#! xticks=[50,'',70,'',90,...
+		#!xticks=[ j if i%2==0 else '' for i,j in enumerate(self.N) ]
+		#! Maybe this uncrowding is already taken care of by reducing the number of N-points
+		#! by having to make N=[50,500],[1000,15000] and the only way the lower N range can be
+		#! constructed is by reducing the number of points (for details see 'mem_hack_comp_ROOT_fits.py') .
+		xticks=self.N 
+		#print x
+
+		#! Make new figured for plots for Gary:
+		#! verify if 'sg_err_av' (v) = 'sg_rms_err' (vii)
+		fig,axs = plt.subplots(figsize=(12,20),nrows=5, ncols=1,sharex=True)
+
+		#! + Plot for CSQ, 'sg_err_av' (v) and 'sg_rms_err' (vii), together versus versus N
+		#! + Note that the former is tagged by 'f' and the latter by 'a', denoting the fact that the
+		#!   former is from the fit and latter is computed arithmetically
+		ax=axs[0]#![0]
+		ax.set_title('sg_err_av (from fit) versus sg_rms_err (using arithmetic)',fontsize='xx-large')
+		y_csq_f=[data['CSQ'][n][SG_ERR_AV]  for n in data['CSQ']]
+		yerr_csq_f=[0 for n in data['CSQ']]
+		y_csq_a=[data['CSQ'][n][SG_RMS_ERR]  for n in data['CSQ']]
+		yerr_csq_a=[0 for n in data['CSQ']]
+		ax.errorbar(x,y_csq_f,  c='r',marker='<',markersize=20,label='CSQ-f',   yerr=yerr_csq_f,fmt='o')
+		ax.errorbar(x,y_csq_a,  c='r',marker='>',markersize=20,label='CSQ-a',   yerr=yerr_csq_a,fmt='o',alpha=0.5)
+		#! Set xlabel only for the "bottom most" plot since the xaxis is shared
+		ax.set_xlabel('N',fontsize='x-large')
+		ax.set_ylabel('f-err,a-err(ps)',fontsize='xx-large')
+		ax.set_ylim(0,10)
+		ax.set_xticks(x)
+		#!ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
+		ax.legend(loc='upper right')
+		#! Fix x axis
+		# shift half a step to the left
+		xmin=(3*x[0]-x[1])/2.
+		# shift half a step to the right
+		xmax=(3*x[-1]-x[-2])/2.
+		ax.set_xlim(xmin,xmax)
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		
+		#! + Plot for CSQ-WW, 'sg_err_av' (v) and 'sg_rms_err' (vii), together versus versus N
+		#! + Note that the former is tagged by 'f' and the latter by 'a', denoting the fact that the
+		#!   former is from the fit and latter is computed arithmetically
+		ax=axs[1]#![0]
+		ax.set_title('sg_err_av (from fit) versus sg_rms_err (using arithmetic)',fontsize='xx-large')
+		y_csqww_f=[data['CSQ-WW'][n][SG_ERR_AV]  for n in data['CSQ-WW']]
+		yerr_csqww_f=[0 for n in data['CSQ-WW']]
+		y_csqww_a=[data['CSQ-WW'][n][SG_RMS_ERR]  for n in data['CSQ-WW']]
+		yerr_csqww_a=[0 for n in data['CSQ-WW']]
+		ax.errorbar(x,y_csqww_f,c='b',marker='<',markersize=20,label='CSQ-WW-f',yerr=yerr_csqww_f,fmt='o')
+		ax.errorbar(x,y_csqww_a,c='b',marker='>',markersize=20,label='CSQ-WW-a',yerr=yerr_csqww_a,fmt='o',alpha=0.5)
+		#! Set xlabel only for the "bottom most" plot since the xaxis is shared
+		ax.set_xlabel('N',fontsize='x-large')
+		ax.set_ylabel('f-err,a-err(ps)',fontsize='xx-large')
+		#ax.set_ylim(0,4)
+		ax.set_xticks(x)
+		#!ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
+		ax.legend(loc='upper right')
+		#! Fix x axis
+		# shift half a step to the left
+		xmin=(3*x[0]-x[1])/2.
+		# shift half a step to the right
+		xmax=(3*x[-1]-x[-2])/2.
+		ax.set_xlim(xmin,xmax)
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		
+		#! + Plot for MLE, 'sg_err_av' (v) and 'sg_rms_err' (vii), together versus versus N
+		#! + Note that the former is tagged by 'f' and the latter by 'a', denoting the fact that the
+		#!   former is from the fit and latter is computed arithmetically
+		ax=axs[2]#![0]
+		#if self.SG==1.25: #! Draw title only for "left most column" of fig in nim-pub
+		ax.set_title('sg_err_av (from fit) versus sg_rms_err (using arithmetic)',fontsize='xx-large')
+		y_mle_f=[data['MLE'][n][SG_ERR_AV]  for n in data['MLE']]
+		yerr_mle_f=  [0 for n in data['MLE']]
+		y_mle_a=[data['MLE'][n][SG_RMS_ERR]  for n in data['MLE']]
+		yerr_mle_a=  [0 for n in data['MLE']]
+		ax.errorbar(x,y_mle_f,  c='g',marker='<',markersize=20,label='MLE-f',   yerr=yerr_mle_f,fmt='o')
+		ax.errorbar(x,y_mle_a,  c='g',marker='>',markersize=20,label='MLE-a',   yerr=yerr_mle_a,fmt='o',alpha=0.5)
+		#! Set xlabel only for the "bottom most" plot since the xaxis is shared
+		ax.set_xlabel('N',fontsize='x-large')
+		ax.set_ylabel('f-err,a-err(ps)',fontsize='xx-large')
+		#ax.set_ylim(0,4)
+		ax.set_xticks(x)
+		#!ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
+		ax.legend(loc='upper right')
+		#! Fix x axis
+		# shift half a step to the left
+		xmin=(3*x[0]-x[1])/2.
+		# shift half a step to the right
+		xmax=(3*x[-1]-x[-2])/2.
+		ax.set_xlim(xmin,xmax)
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		
+		#! + Plot difference = 'sg_err_av'(v)-'sg_rms_err'(vii) versus versus N
+		#! + Note that the former is tagged by 'f' and the latter by 'a', denoting the fact that the
+		#!   former is from the fit and latter is computed arithmetically
+		ax=axs[3]#![0]
+		#if self.SG==1.25: #! Draw title only for "left most column" of fig in nim-pub
+		ax.set_title('sg_rms_err (using arithmetic) - sg_err_av (from fit)',fontsize='xx-large')
+		#! get values from fit
+		y_csq=  [(data['CSQ'][n][SG_RMS_ERR]-data['CSQ'][n][SG_ERR_AV])  for n in data['CSQ']]
+		y_csqww=[(data['CSQ-WW'][n][SG_RMS_ERR]-data['CSQ-WW'][n][SG_ERR_AV])  for n in data['CSQ-WW']]
+		y_mle=[(data['MLE'][n][SG_RMS_ERR]-data['MLE'][n][SG_ERR_AV])  for n in data['MLE']]
+		#! Set error bars to zero
+		yerr_csq=  [0 for n in data['CSQ']]
+		yerr_csqww=[0 for n in data['CSQ-WW']]
+		yerr_mle=  [0 for n in data['MLE']]
+		#! now plot
+		#! f
+		ax.errorbar(x,y_csq,  c='r',label='CSQ',   yerr=yerr_csq,fmt='o')
+		ax.errorbar(x,y_csqww,c='b',label='CSQ-WW',yerr=yerr_csqww,fmt='o')
+		ax.errorbar(x,y_mle,  c='g',label='MLE',   yerr=yerr_mle,fmt='o')
+		#! Set xlabel only for the "bottom most" plot since the xaxis is shared
+		ax.set_xlabel('N',fontsize='x-large')
+		ax.set_ylabel('a-err - f-err (ps)',fontsize='xx-large')
+		#ax.set_ylim(0,20)
+		ax.set_xticks(x)
+		#!ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
+		ax.legend(loc='upper right')
+		#! Fix x axis
+		# shift half a step to the left
+		xmin=(3*x[0]-x[1])/2.
+		# shift half a step to the right
+		xmax=(3*x[-1]-x[-2])/2.
+		ax.set_xlim(xmin,xmax)
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#! rectangular 'patch' to show change in x-scale from [50,500;30] to [1000,15000;1000]
+		px=self.N.index(500)
+		pw=self.N.index(1000)-self.N.index(500)
+		py=ax.get_ylim()[0]
+		ph=ax.get_ylim()[1]-ax.get_ylim()[0]
+
+		#! + Plot relative difference = 'sg_err_av'(v)-'sg_rms_err'(vii)/'sg_err_av'(v) versus versus N
+		#! + Note that the former is tagged by 'f' and the latter by 'a', denoting the fact that the
+		#!   former is from the fit and latter is computed arithmetically
+		ax=axs[4]#![0]
+		#if self.SG==1.25: #! Draw title only for "left most column" of fig in nim-pub
+		ax.set_title('[sg_rms_err (using arithmetic) - sg_err_av (from fit)]/sg_rms_err (using arithmetic)',fontsize='xx-large')
+		#! get values from fit
+		y_csq=  [(data['CSQ'][n][SG_RMS_ERR]-data['CSQ'][n][SG_ERR_AV])/(data['CSQ'][n][SG_RMS_ERR])  for n in data['CSQ']]
+		y_csqww=[(data['CSQ-WW'][n][SG_RMS_ERR]-data['CSQ-WW'][n][SG_ERR_AV])/(data['CSQ-WW'][n][SG_RMS_ERR])  for n in data['CSQ-WW']]
+		y_mle=[(data['MLE'][n][SG_RMS_ERR]-data['MLE'][n][SG_ERR_AV])/(data['MLE'][n][SG_RMS_ERR])  for n in data['MLE']]
+		#! Set error bars to zero
+		yerr_csq=  [0 for n in data['CSQ']]
+		yerr_csqww=[0 for n in data['CSQ-WW']]
+		yerr_mle=  [0 for n in data['MLE']]
+		#! now plot
+		#! f
+		ax.errorbar(x,y_csq,  c='r',label='CSQ',   yerr=yerr_csq,fmt='o')
+		ax.errorbar(x,y_csqww,c='b',label='CSQ-WW',yerr=yerr_csqww,fmt='o')
+		ax.errorbar(x,y_mle,  c='g',label='MLE',   yerr=yerr_mle,fmt='o')
+		#! Set xlabel only for the "bottom most" plot since the xaxis is shared
+		ax.set_xlabel('N',fontsize='x-large')
+		ax.set_ylabel('(a-err - f-err)/a-err',fontsize='xx-large')
+		#ax.set_ylim(0.8,1.5)
+		ax.set_xticks(x)
+		#!ax.set_xticklabels(self.N,rotation='vertical')
+		ax.set_xticklabels(xticks,rotation='vertical')
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#if self.SG==5.30: #! Draw legend only for "right most column" of fig in nim-pub
+		ax.legend(loc='upper right')
+		#! Fix x axis
+		# shift half a step to the left
+		xmin=(3*x[0]-x[1])/2.
+		# shift half a step to the right
+		xmax=(3*x[-1]-x[-2])/2.
+		ax.set_xlim(xmin,xmax)
+		ax.hlines(0,ax.get_xlim()[0],ax.get_xlim()[1])
+		#! rectangular 'patch' to show change in x-scale from [50,500;30] to [1000,15000;1000]
+		px=self.N.index(500)
+		pw=self.N.index(1000)-self.N.index(500)
+		py=ax.get_ylim()[0]
+		ph=ax.get_ylim()[1]-ax.get_ylim()[0]
+
+		#! Don't tag file name with 'hist_range'(=exp/dflt) and 'gen_hist_mthd'(=ROOTic/Pythonic) anymore since
+		#! those options make no difference (even though they are still passed in arguments, for just-in-case)
+		#fig_name="mu-%d_sg-%.2f_binw-%.2f_hist_range-%s_gen_hist_mthd-%s"%(self.MU,self.SG,self.BINW,self.HIST_RANGE,self.GEN_HIST_MTHD)
+		#! Create OUTDIR
+		outdir=("%s/gary_plots"%self.OUTDIR)
+		if not os.path.exists(outdir):
+			os.makedirs(outdir)
+		fig_name="mu-%d_sg-%.2f_binw-%.2f"%(self.MU,self.SG,self.BINW)
+ 		fig.savefig("/%s/%s.png"%(outdir,fig_name))
+		fig.savefig("/%s/%s.pdf"%(outdir,fig_name))
+
+		
+		print "Done CompROOTFits::plot_data_ROOT_fits_gary()"
 		return 0
 		
 
