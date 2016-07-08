@@ -12,8 +12,8 @@ import sys
 #!   make any significant difference to the effect of the plots in communicating the message
 Nlow=range(50,530,30)
 Nhigh=range(1000,15500,500)
-# Nlow=[10]#!range(50,100,20) #! debug
-# Nhigh=[100]#!range(100,1000,500) #! debug
+#Nlow=[500]#![10] #range(50,100,20) #! debug
+#Nhigh=[1000]#![100] #range(100,1000,500) #! debug
 N=Nlow
 N.extend(Nhigh)
 
@@ -26,4 +26,9 @@ gen_hist_mthd=sys.argv[5]
 print "mem_hack_comp_ROOT_fits: Received: mu,sg,binw,hist_range,gen_hist_mthd=",mu,sg,binw,hist_range,gen_hist_mthd
 tool=CompROOTFits(mu,sg,N,binw,hist_range,gen_hist_mthd)
 #tool.save_data_ROOT_fits() #! debug, in the sense, when only the plots needs to be refined using existing data
-tool.plot_data_ROOT_fits()
+#! The following function reads saved 'data' and as per its arguments, calls:
+#! + plot_data_ROOT_fits_NIM_pub(data)
+#! + plot_data_ROOT_fits_gary(data)
+#tool.plot_data_ROOT_fits(NIM_pub=True,gary_plots=True)
+tool.plot_data_ROOT_fits(NIM_pub=False,gary_plots=True)
+#tool.plot_data_ROOT_fits(NIM_pub=True,gary_plots=True)

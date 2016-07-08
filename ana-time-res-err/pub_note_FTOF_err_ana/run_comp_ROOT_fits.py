@@ -18,9 +18,9 @@ import os
 """
 mu=190
 for sg in [1.25,2.25,3.25,4.25,5.30]:#[1,2,3,4]:
-	#!if sg!=1.25: continue #! debug
+	#if sg!=1.25: continue #! debug
 	for binw in [1,0.25]:
-		#!if binw!=1: continue #! debug
+		#if binw!=1: continue #! debug
 		for hist_range in ['exp']:#!,'dflt']:
 			for gen_hist_mthd in ['ROOTic']:#!,'Pythonic']:
 				print "run_comp_ROOT_fits.py: Procesing comp_ROOT_fits for mu,sg,binw,hist_range,gen_hist_mthd=",mu,sg,binw,hist_range,gen_hist_mthd
