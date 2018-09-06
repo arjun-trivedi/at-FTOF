@@ -1,6 +1,6 @@
 ##- set up env variables 
 if ($HOST == "gothe14" || $HOST == "trivedia-laptop") then
-  setenv FTOF_DATADIR "/data/trivedia/FTOF"
+  setenv FTOF_DATADIR "$WORKSPACE/at-FTOF"
 else if ($HOST =~ "*farm*" || $HOST =~ "qcd*") then
   setenv FTOF_DATADIR "$VOLHOME/data/FTOF"
 endif
@@ -13,8 +13,8 @@ alias ftof_ana_gary 'cd ${WORKSPACE}/at-FTOF/ana6bar/6barmethod-2012-04-11'
 
 alias ftof_data 'cd $FTOF_DATADIR'
 
-alias nim_pub    'cd ${WORKSPACE}/NIM_TOF12'
-alias nim_pub_ftof_err_ana 'cd ${WORKSPACE}/at-FTOF/ana-time-res-err/pub_note_FTOF_err_ana'
+alias ftof_nim_pub    'cd ${WORKSPACE}/NIM_TOF12'
+alias ftof_nim_pub_ftof_err_ana 'cd ${WORKSPACE}/at-FTOF/ana-time-res-err/pub_note_FTOF_err_ana'
 #! [02-14-16] After beginning work directly in the offical NIM publication folder, used by the entire group, the following folder should now have become obsolete. However, I am not deleting the folder since it may contain important information.
 #alias num_pub-at-contrib 'cd ${WORKSPACE}/at-FTOF/docs/NIM_TOF12-at-contrib'
 
