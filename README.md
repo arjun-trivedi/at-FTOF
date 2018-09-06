@@ -24,7 +24,7 @@ Branch information
 		+ This basically contains code that I copied over from $WORKSPACE/at-stats, where I had been working before I created at-FTOF repository.
 	+ docs
 		+ Contains all relevant documents
-	+ PMT-tests
+	+ PMT-B-Field-ana ([09-06-18] Hitherto was PMT-tests, but changed to avoid being ignored due to *test* being in .gitignore)
 		+ Code and data from when I was testing PMTs
 
 	+ gary-ana-add-errbars [02-16-15]: Made this branch to perform analysis now that Gary implemented error bars for the extraction of time resolution.
