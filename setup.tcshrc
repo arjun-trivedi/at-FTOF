@@ -10,6 +10,7 @@ alias ftof_ana      'cd ${WORKSPACE}/at-FTOF/ana6bar'
 alias ftof_ana_dc   'cd ${WORKSPACE}/at-FTOF/ana6bar/data_converter_09_02_11'
 alias ftof_ana_ana  'cd ${WORKSPACE}/at-FTOF/ana6bar/nogui_analysis_06_26_12'
 alias ftof_ana_gary 'cd ${WORKSPACE}/at-FTOF/ana6bar/6barmethod-2012-04-11'
+alias ftof_ana_pmt_b_field 'cd ${WORKSPACE}/at-FTOF/PMT-B-Field-ana'
 
 alias ftof_data 'cd $FTOF_DATADIR'
 
